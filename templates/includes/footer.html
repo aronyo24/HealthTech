@@ -36,10 +36,9 @@
         <div class="col-lg-3 col-md-6 footer-links">
           <h4>Care Programs</h4>
           <ul>
-            <li><a href="{% url 'appointment' %}">Book an Appointment</a></li>
+            <li><a href="{% url 'clinic:book_appointment' %}">Book an Appointment</a></li>
             <li><a href="{% url 'department_details' %}">Department Insights</a></li>
             <li><a href="{% url 'service_details' %}">Service Details</a></li>
-            <li><a href="{% url 'testimonials' %}">Patient Stories</a></li>
             <li><a href="{% url 'gallery' %}">Facility Gallery</a></li>
           </ul>
         </div>
@@ -48,8 +47,7 @@
           <h4>Support</h4>
           <ul>
             <li><a href="{% url 'faq' %}">FAQs</a></li>
-            <li><a href="{% url 'terms' %}">Terms of Service</a></li>
-            <li><a href="{% url 'privacy' %}">Privacy Policy</a></li>
+            
             <li><a href="{% url 'clinic:login' %}">Patient Login</a></li>
             <li><a href="{% url 'clinic:register' %}">Create Account</a></li>
           </ul>

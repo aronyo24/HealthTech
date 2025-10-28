@@ -2,7 +2,7 @@
 {% extends 'base.html' %}
 {% load static %}
 
-{% block title %}Home - EduCareSpace{% endblock %}
+{% block title %}Contact - HealthTech{% endblock %}
 
 {% block content %}
   
@@ -73,19 +73,32 @@
           </div>
 
           <div class="col-lg-6" data-aos="fade-up" data-aos-delay="600">
-            <form action="forms/contact.php" method="post" class="php-email-form">
+            {% if messages %}
+              <div class="alert-messages mb-3">
+                {% for message in messages %}
+                  <div class="alert alert-{{ message.tags|default:'info' }}" role="alert">{{ message }}</div>
+                {% endfor %}
+              </div>
+            {% endif %}
+
+            <form action="{% url 'contact' %}" method="post" class="php-email-form">
+              {% csrf_token %}
               <div class="row gy-3">
                 <div class="col-md-6">
-                  <input type="text" name="name" class="form-control" placeholder="Your Name" required="">
+                  <input type="text" name="name" class="form-control" placeholder="Your Name" required value="{{ form_data.name|default:'' }}">
+                  {% if errors.name %}<p class="form-error text-danger small mb-0">{{ errors.name }}</p>{% endif %}
                 </div>
                 <div class="col-md-6">
-                  <input type="email" class="form-control" name="email" placeholder="Your Email" required="">
+                  <input type="email" name="email" class="form-control" placeholder="Your Email" required value="{{ form_data.email|default:'' }}">
+                  {% if errors.email %}<p class="form-error text-danger small mb-0">{{ errors.email }}</p>{% endif %}
                 </div>
                 <div class="col-md-12">
-                  <input type="text" class="form-control" name="subject" placeholder="Subject" required="">
+                  <input type="text" name="subject" class="form-control" placeholder="Subject" required value="{{ form_data.subject|default:'' }}">
+                  {% if errors.subject %}<p class="form-error text-danger small mb-0">{{ errors.subject }}</p>{% endif %}
                 </div>
                 <div class="col-md-12">
-                  <textarea class="form-control" name="message" rows="10" placeholder="Message" required=""></textarea>
+                  <textarea name="message" class="form-control" rows="10" placeholder="How can the HealthTech team help?" required>{{ form_data.message|default:'' }}</textarea>
+                  {% if errors.message %}<p class="form-error text-danger small mb-0">{{ errors.message }}</p>{% endif %}
                 </div>
                 <div class="col-md-12 text-center">
                   <div class="loading">Loading</div>

@@ -72,7 +72,7 @@
               </div>
 
               <div class="service-actions">
-                <a href="{% url 'appointment' %}" class="btn-primary">Schedule Consultation</a>
+                <a href="{% url 'clinic:book_appointment' %}" class="btn-primary">Schedule Consultation</a>
                 <a href="{% url 'services' %}" class="btn-secondary">Explore All Services</a>
               </div>
             </div>
@@ -163,7 +163,7 @@
             <div class="appointment-card">
               <h4>Book Your Visit</h4>
               <p>Secure your preferred time in minutes.</p>
-              <a href="{% url 'appointment' %}" class="btn-appointment">Book Appointment</a>
+              <a href="{% url 'clinic:book_appointment' %}" class="btn-appointment">Book Appointment</a>
               <div class="contact-alternative">
                 <span>Prefer to call?</span>
                 <a href="tel:+19516849123">+1 (951) 684-9123</a>

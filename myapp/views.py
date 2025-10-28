@@ -1,8 +1,10 @@
 from datetime import timedelta
 
-from django.shortcuts import get_object_or_404, render
+from django.core.exceptions import ValidationError
+from django.core.validators import validate_email
+from django.http import HttpResponse
+from django.shortcuts import get_object_or_404, redirect, render
 from django.contrib.auth import authenticate, login, logout
-from django.shortcuts import redirect
 from django.contrib import messages
 
 from django.views.decorators.csrf import csrf_protect, ensure_csrf_cookie
@@ -11,6 +13,7 @@ from django.utils.text import slugify
 
 from clinic.forms import TIME_SLOT_CHOICES
 from clinic.models import Appointment, Doctor
+from .models import ContactMessage
 
 # Create your views here.
 def home(request):
@@ -24,24 +27,23 @@ def home(request):
 
     context = {"featured_doctors": featured_doctors}
     return render(request, 'index.html', context)
+
 def about(request):
     return render(request, 'about.html')
+
 def services(request):
     return render(request, 'services.html')
 def service_details(request):
     return render(request, 'service-details.html')
 def gallery(request):
     return render(request, 'gallery.html')
-def testimonials(request):
-    return render(request, 'testimonials.html')
+
 def faq(request):
     return render(request, 'faq.html')
 def privacy(request):
     return render(request, 'privacy.html')
-def terms(request):
-    return render(request, 'terms.html')
-def starter_page(request):
-    return render(request, 'starter-page.html')   
+
+ 
 def departments(request):
     return render(request, 'departments.html')
 
@@ -169,13 +171,62 @@ def doctor_detail(request, slug):
 def department_details(request):
     return render(request, 'department-details.html')
 
-def appointment(request):
-    return render(request, 'appointment.html')
+# def appointment(request):
+#     return render(request, 'appointment.html')
 
 def contact(request):
-    return render(request, 'contact.html')
+    form_data = {"name": "", "email": "", "subject": "", "message": ""}
+    errors = {}
+    is_ajax = request.headers.get("x-requested-with") == "XMLHttpRequest"
 
-def page_404(request):
-    # Render a friendly 404-like page — header links point to this name in the template
-    return render(request, '404.html')
+    if request.method == "POST":
+        form_data = {
+            "name": request.POST.get("name", "").strip(),
+            "email": request.POST.get("email", "").strip(),
+            "subject": request.POST.get("subject", "").strip(),
+            "message": request.POST.get("message", "").strip(),
+        }
+
+        if not form_data["name"]:
+            errors["name"] = "Please share your full name."
+
+        if not form_data["email"]:
+            errors["email"] = "We need an email address to reply."
+        else:
+            try:
+                validate_email(form_data["email"])
+            except ValidationError:
+                errors["email"] = "That email address looks invalid."
+
+        if not form_data["subject"]:
+            errors["subject"] = "Let us know the topic of your message."
+
+        if not form_data["message"]:
+            errors["message"] = "Please include a short message."
+
+        if not errors:
+            try:
+                ContactMessage.objects.create(**form_data)
+            except Exception:  # pragma: no cover - defensive guard for DB issues
+                if is_ajax:
+                    return HttpResponse("We could not send your message right now. Please try again later.", status=500)
+                messages.error(request, "We could not send your message right now. Please try again later.")
+            else:
+                if is_ajax:
+                    return HttpResponse("OK")
+                messages.success(request, "Thanks for reaching out! Our team will respond shortly.")
+                return redirect("contact")
+
+        if is_ajax:
+            error_text = "\n".join(errors.values()) or "Please correct the highlighted fields and try again."
+            return HttpResponse(error_text, status=400)
+
+        messages.error(request, "Please correct the highlighted fields and try again.")
+
+    context = {"form_data": form_data, "errors": errors}
+    return render(request, 'contact.html', context)
+
+# def page_404(request):
+#     # Render a friendly 404-like page — header links point to this name in the template
+#     return render(request, '404.html')
 
