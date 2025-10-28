@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}Register{% endblock %}
+
+{% block content %}
+ <h2>Patient Registration</h2>
+<form method="post">{% csrf_token %}
+  <input class="form-control mb-2" name="name" placeholder="Full Name" required>
+  <input class="form-control mb-2" name="username" placeholder="Username" required>
+  <input class="form-control mb-2" name="email" placeholder="Email" type="email" required>
+  <input class="form-control mb-2" name="password" placeholder="Password" type="password" required>
+  <button class="btn btn-success">Register</button>
+</form>
+<p class="mt-2">Already have an account? <a href="{% url 'clinic:login' %}">Login here</a>.</p>
+{% endblock %}

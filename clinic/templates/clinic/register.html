@@ -1,0 +1,86 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}Create Patient Account{% endblock %}
+
+{% block content %}
+<section class="py-5" style="background: linear-gradient(135deg, #f0f7ff 0%, #ffffff 100%);">
+  <div class="container py-4">
+    <div class="row g-5 align-items-center">
+      <div class="col-lg-6" data-aos="fade-right">
+        <div class="position-relative">
+          <img src="{% static 'assets/img/health/consultation-3.webp' %}" alt="Patient consultation" class="img-fluid rounded-4 shadow-sm w-100">
+          <div class="position-absolute top-0 start-0 m-3 badge text-bg-primary rounded-pill px-3 py-2 shadow">
+            Compassionate Care
+          </div>
+        </div>
+        <div class="mt-4">
+          <h2 class="fw-semibold text-primary mb-3">Begin Your Care Journey</h2>
+          <p class="text-muted mb-0">Join our patient community for effortless appointment scheduling, personalised care recommendations, and timely updates from your healthcare team.</p>
+        </div>
+      </div>
+
+      <div class="col-lg-6" data-aos="fade-left" data-aos-delay="100">
+        <div class="card border-0 shadow rounded-4">
+          <div class="card-body p-4 p-md-5">
+            <h3 class="fw-semibold mb-4">Patient Registration</h3>
+            <form method="post">
+              {% csrf_token %}
+              <div class="row g-3">
+                <div class="col-12">
+                  <label class="form-label">Full name<span class="text-danger"> *</span></label>
+                  <input type="text" name="name" class="form-control form-control-lg" placeholder="e.g. Jane Doe" value="{{ form_data.name|default:'' }}" required>
+                </div>
+                <div class="col-md-6">
+                  <label class="form-label">Username<span class="text-danger"> *</span></label>
+                  <input type="text" name="username" class="form-control form-control-lg" placeholder="Create a username" value="{{ form_data.username|default:'' }}" autocomplete="username" required>
+                </div>
+                <div class="col-md-6">
+                  <label class="form-label">Email address<span class="text-danger"> *</span></label>
+                  <input type="email" name="email" class="form-control form-control-lg" placeholder="you@example.com" value="{{ form_data.email|default:'' }}" autocomplete="email" required>
+                </div>
+                <div class="col-md-6">
+                  <label class="form-label">Password<span class="text-danger"> *</span></label>
+                  <input type="password" name="password" class="form-control form-control-lg" placeholder="Create a strong password" autocomplete="new-password" minlength="8" required>
+                </div>
+                <div class="col-md-6">
+                  <label class="form-label">Confirm password<span class="text-danger"> *</span></label>
+                  <input type="password" name="confirm_password" class="form-control form-control-lg" placeholder="Re-enter password" autocomplete="new-password" minlength="8" required>
+                </div>
+                <div class="col-md-4">
+                  <label class="form-label">Age</label>
+                  <input type="number" name="age" class="form-control form-control-lg" placeholder="Years" value="{{ form_data.age|default:'' }}" min="0">
+                </div>
+                <div class="col-md-4">
+                  <label class="form-label">Gender</label>
+                  <select name="gender" class="form-select form-select-lg">
+                    <option value="" {% if not form_data.gender %}selected{% endif %}>Prefer not to say</option>
+                    <option value="Female" {% if form_data.gender == 'Female' %}selected{% endif %}>Female</option>
+                    <option value="Male" {% if form_data.gender == 'Male' %}selected{% endif %}>Male</option>
+                    <option value="Other" {% if form_data.gender == 'Other' %}selected{% endif %}>Other</option>
+                  </select>
+                </div>
+                <div class="col-md-4">
+                  <label class="form-label">Contact number</label>
+                  <input type="tel" name="contact" class="form-control form-control-lg" placeholder="Mobile or phone" value="{{ form_data.contact|default:'' }}" autocomplete="tel">
+                </div>
+                <div class="col-12">
+                  <div class="form-check">
+                    <input class="form-check-input" type="checkbox" name="terms" value="1" id="terms" required>
+                    <label class="form-check-label" for="terms">
+                      I agree to the <a href="#!" class="text-decoration-none">terms of service</a> and privacy policy.
+                    </label>
+                  </div>
+                </div>
+                <div class="col-12">
+                  <button class="btn btn-primary btn-lg w-100" type="submit">Create account</button>
+                </div>
+              </div>
+            </form>
+            <p class="text-center text-muted mt-4 mb-0">Already registered? <a href="{% url 'clinic:login' %}" class="fw-semibold text-primary text-decoration-none">Log in to your account</a>.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+{% endblock %}

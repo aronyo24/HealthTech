@@ -1,0 +1,140 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}Patient Dashboard{% endblock %}
+
+{% block content %}
+<section class="py-5 bg-light">
+  <div class="container py-4">
+    <div class="row align-items-center mb-4">
+      <div class="col-lg-8">
+        <h1 class="fw-semibold mb-2">Welcome back, {{ patient.name }}</h1>
+        <p class="text-muted mb-0">Here's an overview of your care plan and upcoming visits.</p>
+      </div>
+      <div class="col-lg-4 mt-3 mt-lg-0">
+        <div class="d-flex gap-2 justify-content-lg-end flex-wrap">
+          <a href="{% url 'clinic:book_appointment' %}" class="btn btn-primary btn-lg">Book appointment</a>
+          <a href="{% url 'clinic:patient_dashboard' %}" class="btn btn-outline-primary btn-lg">Refresh dashboard</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="row g-4 mb-5">
+      <div class="col-md-3">
+        <div class="card border-0 shadow-sm rounded-4 h-100">
+          <div class="card-body">
+            <span class="badge bg-primary-subtle text-primary mb-3">Total visits</span>
+            <h3 class="display-6 fw-semibold">{{ stats.total }}</h3>
+            <p class="text-muted mb-0">Completed and scheduled appointments since you joined.</p>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-3">
+        <div class="card border-0 shadow-sm rounded-4 h-100">
+          <div class="card-body">
+            <span class="badge bg-success-subtle text-success mb-3">Confirmed</span>
+            <h3 class="display-6 fw-semibold">{{ stats.confirmed }}</h3>
+            <p class="text-muted mb-0">Approved visits scheduled for today or later.</p>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-3">
+        <div class="card border-0 shadow-sm rounded-4 h-100">
+          <div class="card-body">
+            <span class="badge bg-warning-subtle text-warning mb-3">Awaiting review</span>
+            <h3 class="display-6 fw-semibold">{{ stats.pending }}</h3>
+            <p class="text-muted mb-0">Appointments awaiting doctor confirmation.</p>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-3">
+        <div class="card border-0 shadow-sm rounded-4 h-100">
+          <div class="card-body">
+            <span class="badge bg-info-subtle text-info mb-3">Completed</span>
+            <h3 class="display-6 fw-semibold">{{ stats.completed }}</h3>
+            <p class="text-muted mb-0">Sessions successfully completed with your care team.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="row g-4">
+      <div class="col-lg-7">
+        <div class="card border-0 shadow rounded-4 h-100">
+          <div class="card-body p-4 p-md-5">
+            <div class="d-flex justify-content-between align-items-center mb-4">
+              <div>
+                <h3 class="fw-semibold mb-1">Upcoming appointments</h3>
+                <p class="text-muted mb-0">Next visits at a glance.</p>
+              </div>
+              <span class="badge bg-primary-subtle text-primary">{{ upcoming|length }} active</span>
+            </div>
+            {% if upcoming %}
+              <div class="list-group list-group-flush">
+                {% for appt in upcoming %}
+                  <div class="list-group-item px-0 py-3">
+                    <div class="d-flex justify-content-between flex-wrap gap-3 align-items-center">
+                      <div>
+                        <h5 class="mb-1">Dr. {{ appt.doctor.name }}</h5>
+                        <p class="text-muted mb-0">{{ appt.doctor.specialization }}</p>
+                      </div>
+                      <div class="text-md-end">
+                        <span class="fw-semibold d-block">{{ appt.appointment_date|date:"M j, Y" }}</span>
+                        <small class="text-muted">{{ appt.time_slot }}</small>
+                        <div class="mt-2">
+                          <span class="badge
+                            {% if appt.status == 'Confirmed' %}bg-success-subtle text-success
+                            {% elif appt.status == 'Pending' %}bg-warning-subtle text-warning
+                            {% elif appt.status == 'Cancelled' %}bg-danger-subtle text-danger
+                            {% else %}bg-secondary-subtle text-secondary{% endif %}">
+                            {{ appt.status }}
+                          </span>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                {% endfor %}
+              </div>
+            {% else %}
+              <div class="text-center py-5">
+                <img src="{% static 'assets/img/health/staff-7.webp' %}" alt="No appointments" class="img-fluid rounded-4 mb-3" style="max-width: 220px;">
+                <h5 class="fw-semibold">No upcoming visits yet</h5>
+                <p class="text-muted mb-0">When you schedule a new appointment it will appear right here.</p>
+              </div>
+            {% endif %}
+          </div>
+        </div>
+      </div>
+      <div class="col-lg-5">
+        <div class="card border-0 shadow rounded-4 h-100">
+          <div class="card-body p-4 p-md-5">
+            <h3 class="fw-semibold mb-4">Recent activity</h3>
+            {% if appointments %}
+              <div class="timeline">
+                {% for appt in appointments|slice:":6" %}
+                  <div class="d-flex mb-4">
+                    <span class="me-3 mt-1 badge rounded-circle bg-primary" style="width: 0.9rem; height: 0.9rem;"></span>
+                    <div>
+                      <h6 class="mb-1">Consulted Dr. {{ appt.doctor.name }}</h6>
+                      <p class="text-muted small mb-1">{{ appt.appointment_date|date:"M j, Y" }} • {{ appt.time_slot }}</p>
+                      <span class="badge
+                        {% if appt.status == 'Confirmed' %}bg-success-subtle text-success
+                        {% elif appt.status == 'Completed' %}bg-success-subtle text-success
+                        {% elif appt.status == 'Pending' %}bg-warning-subtle text-warning
+                        {% elif appt.status == 'Cancelled' %}bg-danger-subtle text-danger
+                        {% else %}bg-secondary-subtle text-secondary{% endif %}">
+                        {{ appt.status }}
+                      </span>
+                    </div>
+                  </div>
+                {% endfor %}
+              </div>
+            {% else %}
+              <p class="text-muted mb-0">You have not booked any appointments yet. Start by scheduling an appointment with one of our specialists.</p>
+            {% endif %}
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+{% endblock %}

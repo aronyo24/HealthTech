@@ -1,0 +1,435 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}Doctor Dashboard{% endblock %}
+
+{% block content %}
+<section class="py-5 bg-light">
+  <div class="container py-4">
+    <div class="row align-items-center mb-4">
+      <div class="col-lg-8">
+        <h1 class="fw-semibold mb-2">Good day, Dr. {{ doctor.name }}</h1>
+        <p class="text-muted mb-0">Here's an overview of your patient schedule and today's visits.</p>
+      </div>
+      <div class="col-lg-4 text-lg-end mt-3 mt-lg-0">
+        <span class="badge bg-primary-subtle text-primary px-3 py-2 rounded-pill">{{ doctor.specialization }}</span>
+      </div>
+    </div>
+
+    <!-- Calendar summary for the last 7 days -->
+    <div class="row mb-4">
+      <div class="col-12">
+        <div class="card border-0 shadow-sm rounded-4">
+          <div class="card-body">
+            <h5 class="fw-semibold mb-3">Recent 7-day booking snapshot</h5>
+            <style>
+              .calendar-grid{display:grid;grid-template-columns:repeat(7,1fr);gap:0.6rem}
+              .calendar-day{padding:0.75rem;border-radius:0.8rem;border:1px dashed rgba(0,0,0,0.06);text-align:center;cursor:pointer;transition:transform .2s,box-shadow .2s,border-color .2s}
+              .calendar-day:hover{transform:translateY(-3px);box-shadow:0 0.75rem 1.5rem rgba(15,76,129,0.08)}
+              .calendar-day.active{border-color:#0d6efd;box-shadow:0 0.9rem 1.8rem rgba(13,110,253,0.18)}
+              .calendar-day .date{font-weight:600}
+              .calendar-day.empty{background:linear-gradient(90deg,#f8f9fa 0%,#ffffff 100%)}
+              .calendar-day.pending{background:linear-gradient(90deg,#fff7e6 0%,#fffaf0 100%);border-color:rgba(255,193,7,0.35)}
+              .calendar-day.confirmed{background:linear-gradient(90deg,#e9f9ee 0%,#f6fff7 100%);border-color:rgba(25,135,84,0.35)}
+              .calendar-legend{display:flex;flex-wrap:wrap;gap:1rem;align-items:center;margin-top:0.75rem}
+              .legend-pill{width:12px;height:12px;border-radius:3px;display:inline-block}
+              .calendar-legend .legend-label{font-size:0.85rem;color:#495057}
+              .calendar-detail-card{border-radius:1rem;}
+              .calendar-slot-grid{display:grid;gap:1rem;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));}
+              @media (min-width: 992px){.calendar-slot-grid{grid-template-columns:repeat(3,1fr);}}
+              .calendar-slot{position:relative;border-radius:1rem;padding:1.1rem 1.25rem;border:1px solid rgba(13,110,253,0.1);background:linear-gradient(90deg,#f8f9fa 0%,#ffffff 100%);min-height:120px;display:flex;flex-direction:column;justify-content:space-between;gap:0.5rem;box-shadow:0 0.5rem 1rem rgba(13,110,253,0.05);transition:transform .2s,box-shadow .2s}
+              .calendar-slot:hover{transform:translateY(-4px);box-shadow:0 0.9rem 1.8rem rgba(13,110,253,0.12)}
+              .calendar-slot .slot-time{font-weight:600;font-size:1.05rem;color:#0d3b66}
+              .calendar-slot .slot-name{font-weight:500;color:#1b4d7a}
+              .calendar-slot .slot-meta{color:#6c757d;font-size:0.85rem}
+              .calendar-slot .slot-status{margin-top:auto;font-size:0.75rem;font-weight:600;letter-spacing:0.05em;text-transform:uppercase}
+              .calendar-slot.available .slot-status{color:#6c757d}
+              .calendar-slot.pending .slot-status{color:#b36b00}
+              .calendar-slot.confirmed .slot-status,.calendar-slot.completed .slot-status{color:#1f7a50}
+              .calendar-slot.cancelled .slot-status{color:#b23a48}
+              .calendar-slot .status-indicator{position:absolute;top:0.85rem;right:0.95rem;width:0.75rem;height:0.75rem;border-radius:50%;box-shadow:0 0 0 4px rgba(255,255,255,0.65)}
+              .calendar-slot.available{background:linear-gradient(135deg,#f8fbff 0%,#ffffff 100%);border-color:rgba(13,110,253,0.08)}
+              .calendar-slot.available .status-indicator{background:#adb5bd}
+              .calendar-slot.pending{background:linear-gradient(135deg,#fff7e6 0%,#fff3cd 100%);border-color:rgba(255,193,7,0.4)}
+              .calendar-slot.pending .status-indicator{background:#f6b400}
+              .calendar-slot.confirmed,.calendar-slot.completed{background:linear-gradient(135deg,#e9f9ee 0%,#f6fff7 100%);border-color:rgba(25,135,84,0.3)}
+              .calendar-slot.confirmed .status-indicator,.calendar-slot.completed .status-indicator{background:#3cb371}
+              .calendar-slot.cancelled{background:linear-gradient(135deg,#fdecec 0%,#fff5f5 100%);border-color:rgba(220,53,69,0.35)}
+              .calendar-slot.cancelled .status-indicator{background:#dc3545}
+              .calendar-slot .empty-label{color:#6c757d;font-style:italic}
+            </style>
+
+            <div class="calendar-grid">
+              {% for day in calendar_days %}
+                <div class="calendar-day {% if day.status %}{{ day.status }}{% else %}empty{% endif %}"
+                     data-date="{{ day.date_iso }}"
+                     data-status="{{ day.status|default:'empty' }}"
+                     data-count="{{ day.count }}">
+                  <div class="date">{{ day.label }}</div>
+                  <div class="small text-muted">{{ day.month }}</div>
+                  <div class="mt-2">
+                    {% if day.status == 'confirmed' %}
+                      <span class="badge bg-success-subtle text-success">{{ day.count }} confirmed</span>
+                    {% elif day.status == 'pending' %}
+                      <span class="badge bg-warning-subtle text-warning">{{ day.count }} pending</span>
+                    {% else %}
+                      <span class="text-muted small">No bookings</span>
+                    {% endif %}
+                  </div>
+                </div>
+              {% endfor %}
+            </div>
+
+            <div class="calendar-legend">
+              <div class="legend-label"><span class="legend-pill" style="background:#f6b400;border:1px solid rgba(255,193,7,0.45)"></span> Pending decision</div>
+              <div class="legend-label"><span class="legend-pill" style="background:#3cb371;border:1px solid rgba(25,135,84,0.35)"></span> Confirmed / completed</div>
+              <div class="legend-label"><span class="legend-pill" style="background:#dc3545;border:1px solid rgba(220,53,69,0.35)"></span> Cancelled</div>
+              <div class="text-muted small">Tip: click a day to preview bookings and review time slots instantly.</div>
+            </div>
+
+            <div id="calendar-day-details" class="card border-0 shadow-sm calendar-detail-card mt-4 d-none">
+              <div class="card-body">
+                <div class="d-flex justify-content-between align-items-center mb-3 flex-wrap gap-2">
+                  <h5 class="fw-semibold mb-0" data-calendar-title>Select a day to view bookings</h5>
+                  <span class="badge bg-primary-subtle text-primary" data-calendar-summary></span>
+                </div>
+                <div data-calendar-body>
+                  <p class="text-muted mb-0">Choose a date from the calendar above to see appointment requests and confirmed sessions.</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="row g-4 mb-5">
+      <div class="col-md-3">
+        <div class="card border-0 shadow-sm rounded-4 h-100">
+          <div class="card-body">
+            <span class="badge bg-primary-subtle text-primary mb-3">Total appointments</span>
+            <h3 class="display-6 fw-semibold">{{ stats.total }}</h3>
+            <p class="text-muted mb-0">All patient visits assigned to you.</p>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-3">
+        <div class="card border-0 shadow-sm rounded-4 h-100">
+          <div class="card-body">
+            <span class="badge bg-success-subtle text-success mb-3">Today</span>
+            <h3 class="display-6 fw-semibold">{{ stats.today }}</h3>
+            <p class="text-muted mb-0">Patients scheduled to see you today.</p>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-3">
+        <div class="card border-0 shadow-sm rounded-4 h-100 position-relative overflow-hidden">
+          <div class="card-body">
+            <span class="badge bg-warning-subtle text-warning mb-3">Awaiting action</span>
+            <h3 class="display-6 fw-semibold">{{ stats.pending }}</h3>
+            <p class="text-muted mb-0">Requests waiting for your decision.</p>
+          </div>
+          <span class="position-absolute top-0 end-0 m-3 text-warning" title="View pending requests">
+            <i class="bi bi-hourglass-split fs-3"></i>
+          </span>
+        </div>
+      </div>
+      <div class="col-md-3">
+        <div class="card border-0 shadow-sm rounded-4 h-100">
+          <div class="card-body">
+            <span class="badge bg-info-subtle text-info mb-3">Completed</span>
+            <h3 class="display-6 fw-semibold">{{ stats.completed }}</h3>
+            <p class="text-muted mb-0">Consultations marked as completed.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="row g-4">
+      <div class="col-lg-6">
+        <div class="card border-0 shadow rounded-4 h-100">
+          <div class="card-body p-4 p-md-5">
+            <div class="d-flex justify-content-between align-items-center mb-4">
+              <div>
+                <h3 class="fw-semibold mb-1">Today's schedule</h3>
+                <p class="text-muted mb-0">Stay on top of today's consultations.</p>
+              </div>
+              <span class="badge bg-primary-subtle text-primary">{{ todays_appointments|length }} booked</span>
+            </div>
+            {% if todays_appointments %}
+              <div class="list-group list-group-flush">
+                {% for appt in todays_appointments %}
+                  <div class="list-group-item px-0 py-3">
+                    <div class="d-flex justify-content-between flex-wrap gap-3">
+                      <div>
+                        <h5 class="mb-1">{{ appt.patient.name }}</h5>
+                        <p class="text-muted mb-0">Time: {{ appt.time_label }}</p>
+                        <p class="text-muted small mb-0">Booked {{ appt.created_display_date }} at {{ appt.created_display_time }}</p>
+                      </div>
+                      <div class="text-end">
+                        <span class="badge
+                          {% if appt.status == 'Confirmed' %}bg-success-subtle text-success
+                          {% elif appt.status == 'Completed' %}bg-success-subtle text-success
+                          {% elif appt.status == 'Pending' %}bg-warning-subtle text-warning
+                          {% elif appt.status == 'Cancelled' %}bg-danger-subtle text-danger
+                          {% else %}bg-secondary-subtle text-secondary{% endif %}">
+                          {{ appt.status }}
+                        </span>
+                        {% if appt.status == 'Pending' %}
+                          <div class="d-flex gap-2 justify-content-end mt-2">
+                            <form method="post" action="{% url 'clinic:update_appointment_status' appt.pk %}">
+                              {% csrf_token %}
+                              <input type="hidden" name="decision" value="confirm">
+                              <button class="btn btn-success btn-sm" type="submit">Accept</button>
+                            </form>
+                            <form method="post" action="{% url 'clinic:update_appointment_status' appt.pk %}">
+                              {% csrf_token %}
+                              <input type="hidden" name="decision" value="cancel">
+                              <button class="btn btn-outline-danger btn-sm" type="submit">Decline</button>
+                            </form>
+                          </div>
+                        {% endif %}
+                      </div>
+                    </div>
+                  </div>
+                {% endfor %}
+              </div>
+            {% else %}
+              <div class="text-center py-4">
+                <img src="{% static 'assets/img/health/staff-5.webp' %}" alt="No appointments today" class="img-fluid rounded-4 mb-3" style="max-width: 220px;">
+                <h5 class="fw-semibold">No patients scheduled today</h5>
+                <p class="text-muted mb-0">Take this time to review patient notes or update completed visits.</p>
+              </div>
+            {% endif %}
+          </div>
+        </div>
+      </div>
+      <div class="col-lg-6">
+        <div class="card border-0 shadow rounded-4 h-100">
+          <div class="card-body p-4 p-md-5">
+            <h3 class="fw-semibold mb-4">Recent appointments</h3>
+            {% if recent_appointments %}
+              <div class="table-responsive">
+                <table class="table align-middle mb-0">
+                  <thead>
+                    <tr class="text-muted small text-uppercase">
+                      <th scope="col">Patient</th>
+                      <th scope="col">Date</th>
+                      <th scope="col">Time</th>
+                      <th scope="col">Booked</th>
+                      <th scope="col">Status</th>
+                      <th scope="col" class="text-end">Actions</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {% for appt in recent_appointments|slice:":8" %}
+                      <tr>
+                        <td>
+                          <div class="d-flex align-items-center">
+                            <div class="rounded-circle bg-primary-subtle text-primary d-flex align-items-center justify-content-center me-3" style="width: 2.5rem; height: 2.5rem;">
+                              {{ appt.patient.name|first|upper }}
+                            </div>
+                            <div>
+                              <span class="fw-semibold d-block">{{ appt.patient.name }}</span>
+                              <small class="text-muted">{{ appt.patient.contact|default:'No contact on file' }}</small>
+                            </div>
+                          </div>
+                        </td>
+                        <td>{{ appt.appointment_date|date:"M j, Y" }}</td>
+                        <td>{{ appt.time_label }}</td>
+                        <td>{{ appt.created_display_date }}<br><small class="text-muted">{{ appt.created_display_time }}</small></td>
+                        <td>
+                          <span class="badge
+                            {% if appt.status == 'Confirmed' %}bg-success-subtle text-success
+                            {% elif appt.status == 'Completed' %}bg-success-subtle text-success
+                            {% elif appt.status == 'Pending' %}bg-warning-subtle text-warning
+                            {% elif appt.status == 'Cancelled' %}bg-danger-subtle text-danger
+                            {% else %}bg-secondary-subtle text-secondary{% endif %}">
+                            {{ appt.status }}
+                          </span>
+                        </td>
+                        <td class="text-end">
+                          {% if appt.status == 'Pending' %}
+                            <div class="d-inline-flex gap-2">
+                              <form method="post" action="{% url 'clinic:update_appointment_status' appt.pk %}">
+                                {% csrf_token %}
+                                <input type="hidden" name="decision" value="confirm">
+                                <button class="btn btn-success btn-sm" type="submit">Accept</button>
+                              </form>
+                              <form method="post" action="{% url 'clinic:update_appointment_status' appt.pk %}">
+                                {% csrf_token %}
+                                <input type="hidden" name="decision" value="cancel">
+                                <button class="btn btn-outline-danger btn-sm" type="submit">Decline</button>
+                              </form>
+                            </div>
+                          {% else %}
+                            <span class="text-muted small">No action required</span>
+                          {% endif %}
+                        </td>
+                      </tr>
+                    {% endfor %}
+                  </tbody>
+                </table>
+              </div>
+            {% else %}
+              <p class="text-muted mb-0">You have not been assigned any appointments yet.</p>
+            {% endif %}
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+{{ calendar_days_json|json_script:"calendar-data" }}
+{{ time_slot_data|json_script:"time-slot-data" }}
+<script>
+  document.addEventListener('DOMContentLoaded', function () {
+    const dataElement = document.getElementById('calendar-data');
+    const slotsElement = document.getElementById('time-slot-data');
+    if (!dataElement) return;
+
+    let calendarData;
+    try {
+      calendarData = JSON.parse(dataElement.textContent);
+    } catch (err) {
+      console.error('Unable to parse calendar data', err);
+      return;
+    }
+
+    const infoByDate = new Map((calendarData || []).map((item) => [item.date, item]));
+    let timeSlots = [];
+    if (slotsElement) {
+      try { timeSlots = JSON.parse(slotsElement.textContent) || []; } catch (e) { timeSlots = []; }
+    }
+    const detailCard = document.getElementById('calendar-day-details');
+    const detailTitle = detailCard ? detailCard.querySelector('[data-calendar-title]') : null;
+    const detailBody = detailCard ? detailCard.querySelector('[data-calendar-body]') : null;
+    const detailSummary = detailCard ? detailCard.querySelector('[data-calendar-summary]') : null;
+
+    const badgeClassForStatus = (status) => {
+      switch (status) {
+        case 'Confirmed':
+        case 'Completed':
+          return 'badge bg-success-subtle text-success';
+        case 'Pending':
+          return 'badge bg-warning-subtle text-warning';
+        case 'Cancelled':
+          return 'badge bg-danger-subtle text-danger';
+        default:
+          return 'badge bg-secondary-subtle text-secondary';
+      }
+    };
+
+    const detailBadgeForDay = (status) => {
+      switch (status) {
+        case 'pending':
+          return 'badge bg-warning-subtle text-warning';
+        case 'confirmed':
+          return 'badge bg-success-subtle text-success';
+        default:
+          return 'badge bg-secondary-subtle text-secondary';
+      }
+    };
+
+    const renderDay = (date, triggerEl) => {
+      if (!detailCard || !detailTitle || !detailBody) return;
+      const info = infoByDate.get(date);
+      if (!info) return;
+
+      document.querySelectorAll('.calendar-day.active').forEach((el) => el.classList.remove('active'));
+      if (triggerEl) triggerEl.classList.add('active');
+
+      detailCard.classList.remove('d-none');
+      detailTitle.textContent = info.label;
+
+      if (detailSummary) {
+        const countLabel = info.count === 1 ? 'appointment' : 'appointments';
+        detailSummary.textContent = `${info.count} ${countLabel}`;
+        detailSummary.className = detailBadgeForDay(info.status);
+      }
+
+      // Render a 3x4 grid (12 slots) with detailed time cards.
+      detailBody.innerHTML = '';
+
+      // Helper: map appointments by time for quick lookup
+      const byTime = new Map((info.appointments || []).map((a) => [a.time, a]));
+
+      const grid = document.createElement('div');
+      grid.className = 'calendar-slot-grid';
+
+      const slotEntries = (timeSlots.length ? timeSlots : (info.appointments || []).map((a) => ({ value: a.time, label: a.time_label || a.time })));
+      const totalCells = Math.max(slotEntries.length, 12);
+
+      for (let i = 0; i < totalCells; i++) {
+        const slot = slotEntries[i] || { value: `slot-${i}`, label: '---' };
+        const appt = byTime.get(slot.value);
+
+        const card = document.createElement('div');
+        let statusKey = 'available';
+        if (appt) {
+          const state = (appt.status || '').toLowerCase();
+          if (['pending', 'confirmed', 'completed', 'cancelled'].includes(state)) {
+            statusKey = state;
+          }
+        }
+        card.className = `calendar-slot ${statusKey}`;
+
+        const statusDot = document.createElement('span');
+        statusDot.className = 'status-indicator';
+        card.appendChild(statusDot);
+
+        const title = document.createElement('div');
+        title.className = 'slot-time';
+        title.textContent = slot.label || slot.value;
+        card.appendChild(title);
+
+        if (appt) {
+          const patient = document.createElement('div');
+          patient.className = 'slot-name';
+          patient.textContent = appt.patient;
+          card.appendChild(patient);
+
+          if (appt.contact) {
+            const contact = document.createElement('div');
+            contact.className = 'slot-meta';
+            contact.textContent = appt.contact;
+            card.appendChild(contact);
+          }
+
+          const statusLabel = document.createElement('div');
+          statusLabel.className = 'slot-status';
+          statusLabel.textContent = appt.status;
+          card.appendChild(statusLabel);
+        } else {
+          const availableLabel = document.createElement('div');
+          availableLabel.className = 'slot-meta empty-label';
+          availableLabel.textContent = 'Available';
+          card.appendChild(availableLabel);
+        }
+
+        grid.appendChild(card);
+      }
+
+      detailBody.appendChild(grid);
+    };
+
+    const dayElements = document.querySelectorAll('.calendar-day');
+    dayElements.forEach((dayEl) => {
+      dayEl.addEventListener('click', () => {
+        const date = dayEl.dataset.date;
+        renderDay(date, dayEl);
+      });
+    });
+
+    const todayIso = new Date().toISOString().split('T')[0];
+    const todayEl = document.querySelector(`.calendar-day[data-date="${todayIso}"]`);
+
+    if (todayEl) {
+      renderDay(todayIso, todayEl);
+    } else if (dayElements.length) {
+      const firstEl = dayElements[0];
+      renderDay(firstEl.dataset.date, firstEl);
+    }
+  });
+</script>
+{% endblock %}

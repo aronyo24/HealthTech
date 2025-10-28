@@ -1,0 +1,25 @@
+{% if appointments %}
+  <table class="table">
+    <thead>
+      <tr><th>Patient</th><th>Doctor</th><th>Date</th><th>Time</th><th>Status</th><th>Action</th></tr>
+    </thead>
+    <tbody>
+      {% for appt in appointments %}
+        <tr>
+          <td>{{ appt.patient.name }}</td>
+          <td>{{ appt.doctor.name }}</td>
+          <td>{{ appt.appointment_date }}</td>
+          <td>{{ appt.time_slot }}</td>
+          <td>{{ appt.status }}</td>
+          <td>
+            {% if user.is_authenticated and user.is_patient and appt.patient.user == user and appt.status != "Cancelled" %}
+              <a href="{% url 'clinic:cancel_appointment' appt.pk %}" class="btn btn-sm btn-warning">Cancel</a>
+            {% endif %}
+          </td>
+        </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+{% else %}
+  <p>No appointments found.</p>
+{% endif %}

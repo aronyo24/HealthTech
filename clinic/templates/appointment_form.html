@@ -1,0 +1,95 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}Book Appointment{% endblock %}
+
+{% block content %}
+<section class="py-5" style="background: linear-gradient(135deg, #f0f7ff 0%, #ffffff 100%);">
+  <div class="container py-4">
+    <div class="row g-5 align-items-stretch">
+      <div class="col-lg-5" data-aos="fade-right">
+        <div class="h-100 d-flex flex-column">
+          <div class="card border-0 shadow rounded-4 overflow-hidden flex-fill">
+            <img src="{% static 'assets/img/health/facilities-3.webp' %}" class="card-img-top" alt="Clinic facilities">
+            <div class="card-body p-4">
+              <span class="badge bg-primary-subtle text-primary mb-3">Seamless scheduling</span>
+              <h3 class="fw-semibold mb-3">Tailored care for {{ patient.name }}</h3>
+              <p class="text-muted mb-0">Pick a specialist, choose a time that suits your routine, and we'll handle the rest. Need help? Talk to our care coordinator on +233-000-123456.</p>
+            </div>
+          </div>
+          <div class="card border-0 shadow-sm rounded-4 mt-4">
+            <div class="card-body p-4">
+              <h5 class="fw-semibold mb-3">Your next visits</h5>
+              {% if upcoming %}
+                <ul class="list-group list-group-flush">
+                  {% for appt in upcoming %}
+                    <li class="list-group-item px-0 d-flex justify-content-between align-items-center">
+                      <div>
+                        <span class="fw-semibold d-block">Dr. {{ appt.doctor.name }}</span>
+                        <small class="text-muted">{{ appt.appointment_date|date:"M j, Y" }} • {{ appt.time_slot }}</small>
+                      </div>
+                      <span class="badge bg-primary-subtle text-primary">Booked</span>
+                    </li>
+                  {% endfor %}
+                </ul>
+              {% else %}
+                <p class="text-muted mb-0">No upcoming bookings yet. Your next visit will appear here as soon as you schedule it.</p>
+              {% endif %}
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-lg-7" data-aos="fade-left" data-aos-delay="100">
+        <div class="card border-0 shadow rounded-4 h-100">
+          <div class="card-body p-4 p-md-5">
+            <div class="d-flex justify-content-between align-items-start mb-4">
+              <div>
+                <h2 class="fw-semibold mb-1">Book a new appointment</h2>
+                <p class="text-muted mb-0">We'll reserve this slot immediately after you confirm.</p>
+              </div>
+              <span class="badge bg-success-subtle text-success">Patient ID: {{ patient.pk }}</span>
+            </div>
+
+            {% if not has_doctors %}
+              <div class="alert alert-warning mb-0" role="alert">
+                We are setting up our specialists roster. Please check back soon or contact support for immediate assistance.
+              </div>
+            {% else %}
+              <form method="post" class="needs-validation">
+                {% csrf_token %}
+                {% if form.non_field_errors %}
+                  <div class="alert alert-danger" role="alert">
+                    {% for error in form.non_field_errors %}{{ error }}{% if not forloop.last %}<br>{% endif %}{% endfor %}
+                  </div>
+                {% endif %}
+
+                <div class="row g-4">
+                  {% for field in form %}
+                    <div class="col-12">
+                      <label class="form-label fw-semibold">{{ field.label }}{% if field.field.required %}<span class="text-danger"> *</span>{% endif %}</label>
+                      {{ field }}
+                      {% if field.help_text %}
+                        <div class="form-text">{{ field.help_text }}</div>
+                      {% endif %}
+                      {% if field.errors %}
+                        <div class="invalid-feedback d-block">
+                          {% for error in field.errors %}{{ error }}{% if not forloop.last %}<br>{% endif %}{% endfor %}
+                        </div>
+                      {% endif %}
+                    </div>
+                  {% endfor %}
+                </div>
+
+                <div class="d-flex gap-3 mt-5">
+                  <button class="btn btn-primary btn-lg" type="submit">Confirm appointment</button>
+                  <a class="btn btn-outline-secondary btn-lg" href="{% url 'clinic:patient_dashboard' %}">Back to dashboard</a>
+                </div>
+              </form>
+            {% endif %}
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+{% endblock %}
