@@ -14,7 +14,16 @@ from clinic.models import Appointment, Doctor
 
 # Create your views here.
 def home(request):
-    return render(request, 'index.html')
+    doctors_qs = Doctor.objects.select_related("user").order_by("-is_featured", "name")
+
+    featured_doctors = list(doctors_qs.filter(is_featured=True)[:4])
+    if len(featured_doctors) < 4:
+        remaining_needed = 4 - len(featured_doctors)
+        extra_doctors = doctors_qs.exclude(pk__in=[doctor.pk for doctor in featured_doctors])[:remaining_needed]
+        featured_doctors.extend(extra_doctors)
+
+    context = {"featured_doctors": featured_doctors}
+    return render(request, 'index.html', context)
 def about(request):
     return render(request, 'about.html')
 def services(request):

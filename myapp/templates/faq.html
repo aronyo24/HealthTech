@@ -2,10 +2,9 @@
 {% extends 'base.html' %}
 {% load static %}
 
-{% block title %}Home - EduCareSpace{% endblock %}
+{% block title %}FAQ - HealthTech{% endblock %}
 
 {% block content %}
-  
 
     <!-- Page Title -->
     <div class="page-title">
@@ -13,8 +12,8 @@
         <div class="container">
           <div class="row d-flex justify-content-center text-center">
             <div class="col-lg-8">
-              <h1 class="heading-title">Frequenty Asked Questions</h1>
-              <p class="mb-0">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut elit tellus, luctus nec ullamcorper mattis, pulvinar dapibus leo.</p>
+              <h1 class="heading-title">Frequently Asked Questions</h1>
+              <p class="mb-0">Answers to the most common questions about scheduling, digital care, billing, and how HealthTech protects your information.</p>
             </div>
           </div>
         </div>
@@ -22,8 +21,8 @@
       <nav class="breadcrumbs">
         <div class="container">
           <ol>
-            <li><a href="index.html">Home</a></li>
-            <li class="current">Faq</li>
+            <li><a href="{% url 'home' %}">Home</a></li>
+            <li class="current">FAQ</li>
           </ol>
         </div>
       </nav>
@@ -41,49 +40,49 @@
             <div class="faq-container">
 
               <div class="faq-item faq-active">
-                <h3>Non consectetur a erat nam at lectus urna duis?</h3>
+                <h3>How do I schedule or change an appointment?</h3>
                 <div class="faq-content">
-                  <p>Feugiat pretium nibh ipsum consequat. Tempus iaculis urna id volutpat lacus laoreet non curabitur gravida. Venenatis lectus magna fringilla urna porttitor rhoncus dolor purus non.</p>
+                  <p>Use the HealthTech portal or call our CareLine at +1 (951) 684-9123. Same-day and virtual visits are released at 7:00 AM daily. If you need to reschedule, select the appointment in your portal dashboard or contact our scheduling team at least 24 hours in advance.</p>
                 </div>
                 <i class="faq-toggle bi bi-chevron-right"></i>
               </div><!-- End Faq item-->
 
               <div class="faq-item">
-                <h3>Feugiat scelerisque varius morbi enim nunc faucibus?</h3>
+                <h3>What should I bring to my first visit?</h3>
                 <div class="faq-content">
-                  <p>Dolor sit amet consectetur adipiscing elit pellentesque habitant morbi. Id interdum velit laoreet id donec ultrices. Fringilla phasellus faucibus scelerisque eleifend donec pretium. Est pellentesque elit ullamcorper dignissim. Mauris ultrices eros in cursus turpis massa tincidunt dui.</p>
+                  <p>Please bring a government-issued ID, insurance card, current medication list, and any recent labs or imaging. New patients can complete intake forms online through the portal so your care team can review them before you arrive.</p>
                 </div>
                 <i class="faq-toggle bi bi-chevron-right"></i>
               </div><!-- End Faq item-->
 
               <div class="faq-item">
-                <h3>Dolor sit amet consectetur adipiscing elit pellentesque?</h3>
+                <h3>Does HealthTech support telehealth visits?</h3>
                 <div class="faq-content">
-                  <p>Eleifend mi in nulla posuere sollicitudin aliquam ultrices sagittis orci. Faucibus pulvinar elementum integer enim. Sem nulla pharetra diam sit amet nisl suscipit. Rutrum tellus pellentesque eu tincidunt. Lectus urna duis convallis convallis tellus. Urna molestie at elementum eu facilisis sed odio morbi quis</p>
+                  <p>Yes. Many primary care, follow-up, and specialty consults are available virtually. Log in to your account, choose "Virtual Visit," and ensure you have a strong internet connection and a private space. Your provider will join through our secure video platform.</p>
                 </div>
                 <i class="faq-toggle bi bi-chevron-right"></i>
               </div><!-- End Faq item-->
 
               <div class="faq-item">
-                <h3>Ac odio tempor orci dapibus. Aliquam eleifend mi in nulla?</h3>
+                <h3>How can I access my medical records or lab results?</h3>
                 <div class="faq-content">
-                  <p>Dolor sit amet consectetur adipiscing elit pellentesque habitant morbi. Id interdum velit laoreet id donec ultrices. Fringilla phasellus faucibus scelerisque eleifend donec pretium. Est pellentesque elit ullamcorper dignissim. Mauris ultrices eros in cursus turpis massa tincidunt dui.</p>
+                  <p>All visit summaries and test results are posted to the HealthTech portal as soon as they are reviewed. You can download PDF copies or request printed records from our Health Information Management team by emailing records@healthtech.com.</p>
                 </div>
                 <i class="faq-toggle bi bi-chevron-right"></i>
               </div><!-- End Faq item-->
 
               <div class="faq-item">
-                <h3>Tempus quam pellentesque nec nam aliquam sem et tortor?</h3>
+                <h3>What insurance plans do you accept?</h3>
                 <div class="faq-content">
-                  <p>Molestie a iaculis at erat pellentesque adipiscing commodo. Dignissim suspendisse in est ante in. Nunc vel risus commodo viverra maecenas accumsan. Sit amet nisl suscipit adipiscing bibendum est. Purus gravida quis blandit turpis cursus in</p>
+                  <p>We partner with most major commercial plans, Medicare, and select managed Medicaid networks. Visit our insurance page inside the portal or contact billing@healthtech.com with your plan details so our specialists can confirm coverage.</p>
                 </div>
                 <i class="faq-toggle bi bi-chevron-right"></i>
               </div><!-- End Faq item-->
 
               <div class="faq-item">
-                <h3>Perspiciatis quod quo quos nulla quo illum ullam?</h3>
+                <h3>How does HealthTech protect my information?</h3>
                 <div class="faq-content">
-                  <p>Enim ea facilis quaerat voluptas quidem et dolorem. Quis et consequatur non sed in suscipit sequi. Distinctio ipsam dolore et.</p>
+                  <p>We encrypt every record, require multifactor authentication for portal access, and monitor our systems 24/7. Only the clinicians involved in your care can access your data. Learn more in our <a href="{% url 'privacy' %}">Privacy Policy</a>.</p>
                 </div>
                 <i class="faq-toggle bi bi-chevron-right"></i>
               </div><!-- End Faq item-->

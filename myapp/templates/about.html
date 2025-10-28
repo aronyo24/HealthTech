@@ -2,7 +2,7 @@
 {% extends 'base.html' %}
 {% load static %}
 
-{% block title %}Home - EduCareSpace{% endblock %}
+{% block title %}About - HealthTech{% endblock %}
 
 {% block content %}
   
@@ -15,10 +15,9 @@
             <div class="col-lg-8">
               <h1 class="heading-title">About</h1>
               <p class="mb-0">
-                Odio et unde deleniti. Deserunt numquam exercitationem. Officiis quo
-                odio sint voluptas consequatur ut a odio voluptatem. Sit dolorum
-                debitis veritatis natus dolores. Quasi ratione sint. Sit quaerat
-                ipsum dolorem.
+                HealthTech is a digitally connected care network focused on proactive wellness and
+                coordinated treatment journeys. We combine compassionate specialists, smart data,
+                and intuitive patient tools to deliver care that feels personal, trusted, and easy to access.
               </p>
             </div>
           </div>
@@ -27,7 +26,7 @@
       <nav class="breadcrumbs">
         <div class="container">
           <ol>
-            <li><a href="index.html">Home</a></li>
+            <li><a href="{% url 'home' %}">Home</a></li>
             <li class="current">About</li>
           </ol>
         </div>
@@ -42,8 +41,8 @@
         <div class="intro-section">
           <div class="row justify-content-center">
             <div class="col-lg-8 text-center" data-aos="fade-up" data-aos-delay="100">
-              <h2>Excellence in Healthcare Since 1985</h2>
-              <p class="lead">We believe that exceptional medical care begins with understanding. Our dedicated team of professionals combines cutting-edge technology with compassionate, personalized treatment to ensure every patient receives the highest standard of care.</p>
+              <h2>Reimagining Care for a Connected Future</h2>
+              <p class="lead">For four decades, HealthTech has paired leading clinicians with advanced technology to provide coordinated, patient-first healthcare. Every encounter is designed to be transparent, data-informed, and centered on the individual goals of our patients and their families.</p>
             </div>
           </div>
         </div>
@@ -53,19 +52,19 @@
             <div class="col-lg-7" data-aos="fade-right" data-aos-delay="200">
               <div class="image-gallery">
                 <div class="main-image-container">
-                  <img src="assets/img/health/facilities-3.webp" class="img-fluid main-image" alt="Medical facility">
+                  <img src="{% static 'assets/img/health/facilities-3.webp' %}" class="img-fluid main-image" alt="HealthTech flagship campus">
                 </div>
                 <div class="secondary-images">
-                  <img src="assets/img/health/staff-12.webp" class="img-fluid secondary-image" alt="Medical team" data-aos="zoom-in" data-aos-delay="400">
-                  <img src="assets/img/health/consultation-4.webp" class="img-fluid secondary-image" alt="Patient consultation" data-aos="zoom-in" data-aos-delay="500">
+                  <img src="{% static 'assets/img/health/staff-12.webp' %}" class="img-fluid secondary-image" alt="HealthTech care team" data-aos="zoom-in" data-aos-delay="400">
+                  <img src="{% static 'assets/img/health/consultation-4.webp' %}" class="img-fluid secondary-image" alt="Virtual consultation" data-aos="zoom-in" data-aos-delay="500">
                 </div>
               </div>
             </div>
 
             <div class="col-lg-5" data-aos="fade-left" data-aos-delay="300">
               <div class="stats-content">
-                <h3>Trusted Healthcare Provider</h3>
-                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation.</p>
+                <h3>Trusted Healthcare Partner</h3>
+                <p>Our hybrid care blueprint blends in-person expertise with secure digital follow-up, giving patients 24/7 access to their care team, transparent treatment plans, and ongoing wellness coaching.</p>
 
                 <div class="stats-list">
                   <div class="stat-row">
@@ -74,7 +73,7 @@
                     </div>
                     <div class="stat-info">
                       <h5>Successful Treatments</h5>
-                      <p>Completed with excellent patient outcomes</p>
+                      <p>Completed with personalized recovery pathways</p>
                     </div>
                   </div>
 
@@ -84,7 +83,7 @@
                     </div>
                     <div class="stat-info">
                       <h5>Patient Satisfaction</h5>
-                      <p>Based on comprehensive feedback surveys</p>
+                      <p>Based on real-time patient experience reviews</p>
                     </div>
                   </div>
 
@@ -94,7 +93,7 @@
                     </div>
                     <div class="stat-info">
                       <h5>Medical Professionals</h5>
-                      <p>Specialists across various departments</p>
+                      <p>Specialists collaborating across 18 departments</p>
                     </div>
                   </div>
                 </div>
@@ -111,7 +110,7 @@
                   <i class="bi bi-heart"></i>
                 </div>
                 <h4>Our Mission</h4>
-                <p>To provide comprehensive, patient-centered healthcare that combines medical excellence with genuine compassion, ensuring every individual receives personalized care tailored to their unique needs.</p>
+                <p>Deliver intelligent, compassionate healthcare that anticipates patient needs, empowers prevention, and ensures every person feels seen throughout their care journey.</p>
               </div>
             </div>
 
@@ -121,7 +120,7 @@
                   <i class="bi bi-eye"></i>
                 </div>
                 <h4>Our Vision</h4>
-                <p>To be the leading healthcare provider in our region, recognized for innovative treatments, exceptional outcomes, and our unwavering commitment to improving lives in our community.</p>
+                <p>Build the most trusted, technology-enabled care ecosystem—connecting communities with experts, insights, and services that elevate lifelong wellness.</p>
               </div>
             </div>
 
@@ -131,7 +130,7 @@
                   <i class="bi bi-star"></i>
                 </div>
                 <h4>Our Promise</h4>
-                <p>Every patient will receive the highest quality care in a comfortable, supportive environment where their health, dignity, and well-being are our top priorities.</p>
+                <p>From the first appointment to long-term follow-up, HealthTech delivers coordinated support, clear communication, and dignified care tailored to every patient.</p>
               </div>
             </div>
           </div>
@@ -141,7 +140,7 @@
           <div class="row">
             <div class="col-lg-12 text-center">
               <h3>Areas of Excellence</h3>
-              <p class="section-description">Our specialized departments work together to provide comprehensive care across multiple medical disciplines</p>
+              <p class="section-description">Interdisciplinary teams collaborate through a unified digital record to deliver seamless care across every specialty.</p>
             </div>
           </div>
 
@@ -179,7 +178,7 @@
             <div class="col-lg-2 col-md-4 col-sm-6" data-aos="fade-up" data-aos-delay="350">
               <div class="specialty-item">
                 <i class="bi bi-clipboard2-pulse"></i>
-                <span>Emergency</span>
+                <span>Emergency Medicine</span>
               </div>
             </div>
           </div>
@@ -189,7 +188,7 @@
           <div class="row">
             <div class="col-lg-12 text-center">
               <h3>Recognized Excellence</h3>
-              <p class="section-description">Our commitment to quality is validated by prestigious healthcare organizations</p>
+              <p class="section-description">Independent healthcare bodies continue to recognize HealthTech for safety, innovation, and patient experience leadership.</p>
             </div>
           </div>
 
@@ -197,22 +196,22 @@
             <div class="col-lg-8">
               <div class="accreditation-grid">
                 <div class="accreditation-item" data-aos="fade-up" data-aos-delay="100">
-                  <img src="assets/img/clients/clients-6.webp" class="img-fluid" alt="Healthcare accreditation">
+                  <img src="{% static 'assets/img/clients/clients-6.webp' %}" class="img-fluid" alt="National quality accreditation">
                 </div>
                 <div class="accreditation-item" data-aos="fade-up" data-aos-delay="150">
-                  <img src="assets/img/clients/clients-7.webp" class="img-fluid" alt="Medical certification">
+                  <img src="{% static 'assets/img/clients/clients-7.webp' %}" class="img-fluid" alt="Clinical safety certification">
                 </div>
                 <div class="accreditation-item" data-aos="fade-up" data-aos-delay="200">
-                  <img src="assets/img/clients/clients-8.webp" class="img-fluid" alt="Quality assurance">
+                  <img src="{% static 'assets/img/clients/clients-8.webp' %}" class="img-fluid" alt="Innovation award badge">
                 </div>
                 <div class="accreditation-item" data-aos="fade-up" data-aos-delay="250">
-                  <img src="assets/img/clients/clients-9.webp" class="img-fluid" alt="Healthcare excellence">
+                  <img src="{% static 'assets/img/clients/clients-9.webp' %}" class="img-fluid" alt="Excellence in care recognition">
                 </div>
                 <div class="accreditation-item" data-aos="fade-up" data-aos-delay="300">
-                  <img src="assets/img/clients/clients-10.webp" class="img-fluid" alt="Medical standards">
+                  <img src="{% static 'assets/img/clients/clients-10.webp' %}" class="img-fluid" alt="Patient experience distinction">
                 </div>
                 <div class="accreditation-item" data-aos="fade-up" data-aos-delay="350">
-                  <img src="assets/img/clients/clients-11.webp" class="img-fluid" alt="Healthcare certification">
+                  <img src="{% static 'assets/img/clients/clients-11.webp' %}" class="img-fluid" alt="Technology leadership award">
                 </div>
               </div>
             </div>

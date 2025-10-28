@@ -2,10 +2,9 @@
 {% extends 'base.html' %}
 {% load static %}
 
-{% block title %}Home - EduCareSpace{% endblock %}
+{% block title %}Services - HealthTech{% endblock %}
 
 {% block content %}
-  
 
     <!-- Page Title -->
     <div class="page-title">
@@ -13,12 +12,10 @@
         <div class="container">
           <div class="row d-flex justify-content-center text-center">
             <div class="col-lg-8">
-              <h1 class="heading-title">Services</h1>
+              <h1 class="heading-title">Our Services</h1>
               <p class="mb-0">
-                Odio et unde deleniti. Deserunt numquam exercitationem. Officiis quo
-                odio sint voluptas consequatur ut a odio voluptatem. Sit dolorum
-                debitis veritatis natus dolores. Quasi ratione sint. Sit quaerat
-                ipsum dolorem.
+                Explore HealthTech's coordinated programs that connect primary care, specialty experts, and digital
+                tools to keep you well at every stage of life.
               </p>
             </div>
           </div>
@@ -27,7 +24,7 @@
       <nav class="breadcrumbs">
         <div class="container">
           <ol>
-            <li><a href="index.html">Home</a></li>
+            <li><a href="{% url 'home' %}">Home</a></li>
             <li class="current">Services</li>
           </ol>
         </div>
@@ -46,21 +43,21 @@
               <div class="service-card primary-care">
                 <div class="service-header">
                   <div class="service-icon">
-                    <i class="fas fa-heartbeat"></i>
+                    <i class="fas fa-stethoscope"></i>
                   </div>
                   <span class="service-category">Primary Care</span>
                 </div>
                 <div class="service-body">
-                  <h4>General Consultation</h4>
-                  <p>Comprehensive health assessments and preventive care planning for all family members.</p>
+                  <h4>Connected Care Teams</h4>
+                  <p>Inclusive wellness visits, chronic condition management, and proactive screenings led by your HealthTech physician.</p>
                   <div class="service-features">
-                    <span class="feature-badge">Health Monitoring</span>
-                    <span class="feature-badge">Wellness Programs</span>
-                    <span class="feature-badge">Preventive Care</span>
+                    <span class="feature-badge">Virtual & In-Clinic</span>
+                    <span class="feature-badge">Care Navigation</span>
+                    <span class="feature-badge">Preventive Plans</span>
                   </div>
                 </div>
                 <div class="service-footer">
-                  <a href="service-details.html" class="service-btn">
+                  <a href="{% url 'service_details' %}" class="service-btn">
                     Schedule Visit
                     <i class="fas fa-arrow-right"></i>
                   </a>
@@ -75,20 +72,20 @@
                     <i class="fas fa-heart"></i>
                   </div>
                   <span class="service-category">Specialty</span>
-                  <div class="featured-badge">Most Popular</div>
+                  <div class="featured-badge">Patient Favorite</div>
                 </div>
                 <div class="service-body">
-                  <h4>Cardiology Services</h4>
-                  <p>Advanced heart care including diagnostics, treatment, and post-operative rehabilitation programs.</p>
+                  <h4>Heart & Vascular</h4>
+                  <p>Comprehensive cardiology from diagnostics through rehabilitation with dedicated care navigators and remote monitoring.</p>
                   <div class="service-features">
-                    <span class="feature-badge">Heart Surgery</span>
-                    <span class="feature-badge">ECG Testing</span>
+                    <span class="feature-badge">Cath Lab</span>
+                    <span class="feature-badge">Structural Heart</span>
                     <span class="feature-badge">Cardiac Rehab</span>
                   </div>
                 </div>
                 <div class="service-footer">
-                  <a href="service-details.html" class="service-btn">
-                    Book Appointment
+                  <a href="{% url 'service_details' %}" class="service-btn">
+                    View Program
                     <i class="fas fa-arrow-right"></i>
                   </a>
                 </div>
@@ -104,17 +101,17 @@
                   <span class="service-category">Diagnostics</span>
                 </div>
                 <div class="service-body">
-                  <h4>Laboratory Testing</h4>
-                  <p>Complete range of diagnostic tests with quick turnaround times and accurate results.</p>
+                  <h4>Imaging & Labs</h4>
+                  <p>High-resolution imaging, laboratory testing, and same-day reporting integrated with your digital record.</p>
                   <div class="service-features">
-                    <span class="feature-badge">Blood Work</span>
-                    <span class="feature-badge">Pathology</span>
-                    <span class="feature-badge">Same-Day Results</span>
+                    <span class="feature-badge">24h Results</span>
+                    <span class="feature-badge">Digital Access</span>
+                    <span class="feature-badge">Specialist Review</span>
                   </div>
                 </div>
                 <div class="service-footer">
-                  <a href="service-details.html" class="service-btn">
-                    Order Tests
+                  <a href="{% url 'service_details' %}" class="service-btn">
+                    Book Diagnostics
                     <i class="fas fa-arrow-right"></i>
                   </a>
                 </div>
@@ -128,19 +125,19 @@
                     <i class="fas fa-ambulance"></i>
                   </div>
                   <span class="service-category">Emergency</span>
-                  <div class="status-indicator">24/7 Available</div>
+                  <div class="status-indicator">24/7 Command Center</div>
                 </div>
                 <div class="service-body">
-                  <h4>Emergency Care</h4>
-                  <p>Round-the-clock emergency services with trauma center and critical care capabilities.</p>
+                  <h4>Emergency & Urgent Care</h4>
+                  <p>Board-certified emergency physicians and trauma teams backed by real-time access to your HealthTech record.</p>
                   <div class="service-features">
-                    <span class="feature-badge">Trauma Center</span>
-                    <span class="feature-badge">Critical Care</span>
-                    <span class="feature-badge">Emergency Surgery</span>
+                    <span class="feature-badge">Level II Trauma</span>
+                    <span class="feature-badge">Rapid Imaging</span>
+                    <span class="feature-badge">Critical Transport</span>
                   </div>
                 </div>
                 <div class="service-footer">
-                  <a href="tel:911" class="service-btn emergency-btn">
+                  <a href="tel:+19516849123" class="service-btn emergency-btn">
                     Call Emergency
                     <i class="fas fa-phone"></i>
                   </a>
@@ -154,20 +151,20 @@
                   <div class="service-icon">
                     <i class="fas fa-baby"></i>
                   </div>
-                  <span class="service-category">Maternal Health</span>
+                  <span class="service-category">Women's Health</span>
                 </div>
                 <div class="service-body">
-                  <h4>Women's Health</h4>
-                  <p>Comprehensive maternal care from prenatal checkups to delivery and postnatal support.</p>
+                  <h4>Maternity & Fertility</h4>
+                  <p>From preconception planning to postpartum support, our family-centered teams create safe, informed birth experiences.</p>
                   <div class="service-features">
-                    <span class="feature-badge">Prenatal Care</span>
-                    <span class="feature-badge">Delivery Support</span>
-                    <span class="feature-badge">Family Planning</span>
+                    <span class="feature-badge">Birth Suites</span>
+                    <span class="feature-badge">Doula Network</span>
+                    <span class="feature-badge">Lactation Support</span>
                   </div>
                 </div>
                 <div class="service-footer">
-                  <a href="service-details.html" class="service-btn">
-                    Learn More
+                  <a href="{% url 'service_details' %}" class="service-btn">
+                    Plan Your Journey
                     <i class="fas fa-arrow-right"></i>
                   </a>
                 </div>
@@ -183,17 +180,17 @@
                   <span class="service-category">Prevention</span>
                 </div>
                 <div class="service-body">
-                  <h4>Vaccination Services</h4>
-                  <p>Complete immunization programs for all ages including travel vaccines and seasonal shots.</p>
+                  <h4>Immunization Clinic</h4>
+                  <p>Community-based vaccination programs, travel medicine consults, and workplace immunization drives.</p>
                   <div class="service-features">
-                    <span class="feature-badge">Travel Vaccines</span>
-                    <span class="feature-badge">Flu Shots</span>
-                    <span class="feature-badge">Child Immunizations</span>
+                    <span class="feature-badge">Walk-In Friendly</span>
+                    <span class="feature-badge">Travel Ready</span>
+                    <span class="feature-badge">Pediatric Specialists</span>
                   </div>
                 </div>
                 <div class="service-footer">
-                  <a href="service-details.html" class="service-btn">
-                    Schedule Shot
+                  <a href="{% url 'service_details' %}" class="service-btn">
+                    Reserve a Slot
                     <i class="fas fa-arrow-right"></i>
                   </a>
                 </div>
@@ -220,13 +217,13 @@
             <div class="col-lg-3 col-md-6">
               <div class="stat-item">
                 <div class="stat-number" data-purecounter-start="0" data-purecounter-end="18" data-purecounter-duration="2"></div>
-                <div class="stat-label">Specializations</div>
+                <div class="stat-label">Specialties</div>
               </div>
             </div>
             <div class="col-lg-3 col-md-6">
               <div class="stat-item">
                 <div class="stat-number" data-purecounter-start="0" data-purecounter-end="24" data-purecounter-duration="2"></div>
-                <div class="stat-label">Hours Service</div>
+                <div class="stat-label">Hour Support</div>
               </div>
             </div>
           </div>
@@ -236,13 +233,13 @@
           <div class="banner-content">
             <div class="banner-text">
               <h3>Need Medical Attention?</h3>
-              <p>Book your appointment with our qualified healthcare professionals and get the care you deserve.</p>
+              <p>Connect with our scheduling team to match with the right HealthTech specialist or care program.</p>
             </div>
             <div class="banner-actions">
-              <a href="appointment.html" class="btn-primary">Book Appointment</a>
-              <a href="tel:+15551234567" class="btn-secondary">
+              <a href="{% url 'appointment' %}" class="btn-primary">Book Appointment</a>
+              <a href="tel:+19516849123" class="btn-secondary">
                 <i class="fas fa-phone"></i>
-                Call Now
+                Call CareLine
               </a>
             </div>
           </div>

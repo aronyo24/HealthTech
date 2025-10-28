@@ -2,10 +2,9 @@
 {% extends 'base.html' %}
 {% load static %}
 
-{% block title %}Home - EduCareSpace{% endblock %}
+{% block title %}Department Details - HealthTech{% endblock %}
 
 {% block content %}
-  
 
     <!-- Page Title -->
     <div class="page-title">
@@ -13,12 +12,9 @@
         <div class="container">
           <div class="row d-flex justify-content-center text-center">
             <div class="col-lg-8">
-              <h1 class="heading-title">Department Details</h1>
+              <h1 class="heading-title">Heart & Vascular Institute</h1>
               <p class="mb-0">
-                Odio et unde deleniti. Deserunt numquam exercitationem. Officiis quo
-                odio sint voluptas consequatur ut a odio voluptatem. Sit dolorum
-                debitis veritatis natus dolores. Quasi ratione sint. Sit quaerat
-                ipsum dolorem.
+                Our cardiology teams deliver coordinated preventive, interventional, and rehabilitation care powered by real-time data and compassionate expertise.
               </p>
             </div>
           </div>
@@ -27,7 +23,7 @@
       <nav class="breadcrumbs">
         <div class="container">
           <ol>
-            <li><a href="index.html">Home</a></li>
+            <li><a href="{% url 'home' %}">Home</a></li>
             <li class="current">Department Details</li>
           </ol>
         </div>
@@ -47,45 +43,45 @@
                   <i class="bi bi-heart-pulse"></i>
                   <span>Cardiology</span>
                 </div>
-                <h1 class="department-name">Comprehensive Heart Care Center</h1>
-                <p class="department-description">Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Vestibulum tortor quam, feugiat vitae, ultricies eget, tempor sit amet, ante.</p>
+                <h1 class="department-name">Advanced Cardiovascular Care</h1>
+                <p class="department-description">We combine predictive analytics, minimally invasive procedures, and personalized recovery plans to protect every heartbeat.</p>
               </div>
 
               <div class="service-highlights" data-aos="fade-up" data-aos-delay="300">
-                <h3>Specialized Services</h3>
+                <h3>Specialized Programs</h3>
                 <div class="highlights-grid">
                   <div class="highlight-card">
                     <div class="highlight-icon">
                       <i class="bi bi-activity"></i>
                     </div>
-                    <h4>Cardiac Surgery</h4>
-                    <p>Donec rutrum congue leo eget malesuada vestibulum ac diam sit amet quam.</p>
+                    <h4>Structural Heart</h4>
+                    <p>Transcatheter valve repair and replacement with next-day discharge pathways.</p>
                   </div>
                   <div class="highlight-card">
                     <div class="highlight-icon">
-                      <i class="bi bi-eye"></i>
+                      <i class="bi bi-hospital"></i>
                     </div>
-                    <h4>Diagnostic Testing</h4>
-                    <p>Curabitur arcu erat accumsan id imperdiet et porttitor at sem mauris blandit.</p>
+                    <h4>Hybrid Cath Lab</h4>
+                    <p>Real-time imaging and robotics for complex interventions and electrophysiology procedures.</p>
                   </div>
                   <div class="highlight-card">
                     <div class="highlight-icon">
                       <i class="bi bi-shield-plus"></i>
                     </div>
-                    <h4>Preventive Care</h4>
-                    <p>Nulla quis lorem ut libero malesuada feugiat cras ultricies ligula sed magna.</p>
+                    <h4>Prevention & Rehab</h4>
+                    <p>Team-based lifestyle coaching, remote monitoring, and cardiac fitness programs.</p>
                   </div>
                 </div>
               </div>
 
               <div class="cta-section" data-aos="fade-up" data-aos-delay="400">
-                <a href="appointment.html" class="btn-appointment">
+                <a href="{% url 'appointment' %}" class="btn-appointment">
                   <i class="bi bi-calendar-plus"></i>
                   <span>Book Appointment</span>
                 </a>
                 <div class="contact-quick">
-                  <span class="contact-label">Emergency Line</span>
-                  <span class="contact-number">+1 (555) 987-6543</span>
+                  <span class="contact-label">Cardiac Triage</span>
+                  <span class="contact-number">+1 (951) 684-9123</span>
                 </div>
               </div>
             </div>
@@ -94,15 +90,15 @@
           <div class="col-lg-5">
             <div class="visual-section" data-aos="fade-left" data-aos-delay="300">
               <div class="main-visual">
-                <img src="assets/img/health/cardiology-3.webp" alt="Cardiology Department" class="img-fluid department-image">
+                <img src="{% static 'assets/img/health/cardiology-3.webp' %}" alt="HealthTech cardiology pavilion" class="img-fluid department-image">
                 <div class="stats-overlay" data-aos="zoom-in" data-aos-delay="500">
                   <div class="stat-item">
                     <span class="stat-number">98%</span>
-                    <span class="stat-label">Success Rate</span>
+                    <span class="stat-label">Procedure Success</span>
                   </div>
                   <div class="stat-item">
                     <span class="stat-number">12K+</span>
-                    <span class="stat-label">Patients Treated</span>
+                    <span class="stat-label">Patients Supported</span>
                   </div>
                 </div>
               </div>
@@ -114,25 +110,25 @@
           <div class="row">
             <div class="col-lg-8">
               <div class="details-content">
-                <h3>Expert Care You Can Trust</h3>
-                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+                <h3>Why Patients Choose HealthTech</h3>
+                <p>Every patient receives a coordinated care plan overseen by a dedicated cardiology navigator. We track progress using integrated EHR insights and connected devices, ensuring quick adjustments and transparent communication with families.</p>
 
                 <div class="care-features">
                   <div class="feature-row">
                     <i class="bi bi-check-circle"></i>
-                    <span>State-of-the-art cardiac catheterization laboratory</span>
+                    <span>Personalized risk assessments powered by predictive analytics</span>
                   </div>
                   <div class="feature-row">
                     <i class="bi bi-check-circle"></i>
-                    <span>Advanced imaging and diagnostic capabilities</span>
+                    <span>24/7 monitoring for high-acuity patients through our virtual command center</span>
                   </div>
                   <div class="feature-row">
                     <i class="bi bi-check-circle"></i>
-                    <span>Minimally invasive surgical procedures</span>
+                    <span>Minimally invasive options with faster recovery and reduced hospital stays</span>
                   </div>
                   <div class="feature-row">
                     <i class="bi bi-check-circle"></i>
-                    <span>Comprehensive rehabilitation programs</span>
+                    <span>Comprehensive rehabilitation, nutrition, and lifestyle coaching programs</span>
                   </div>
                 </div>
               </div>
@@ -145,15 +141,15 @@
                   <div class="hours-list">
                     <div class="hours-item">
                       <span>Monday - Friday</span>
-                      <span>7:00 AM - 8:00 PM</span>
+                      <span>7:30 AM - 7:00 PM</span>
                     </div>
                     <div class="hours-item">
                       <span>Saturday</span>
-                      <span>8:00 AM - 5:00 PM</span>
+                      <span>8:00 AM - 2:00 PM</span>
                     </div>
                     <div class="hours-item">
                       <span>Sunday</span>
-                      <span>Emergency Only</span>
+                      <span>On-call Team</span>
                     </div>
                   </div>
                 </div>
@@ -161,17 +157,17 @@
                 <div class="info-card">
                   <h4>Quick Links</h4>
                   <div class="quick-links">
-                    <a href="services.html">
+                    <a href="{% url 'services' %}">
                       <i class="bi bi-arrow-right"></i>
-                      <span>All Cardiology Services</span>
+                      <span>All Heart Services</span>
                     </a>
-                    <a href="doctors.html">
+                    <a href="{% url 'doctors' %}">
                       <i class="bi bi-arrow-right"></i>
-                      <span>Meet Our Specialists</span>
+                      <span>Meet Our Cardiologists</span>
                     </a>
-                    <a href="insurance.html">
+                    <a href="{% url 'contact' %}">
                       <i class="bi bi-arrow-right"></i>
-                      <span>Insurance Information</span>
+                      <span>Speak With Care Team</span>
                     </a>
                   </div>
                 </div>

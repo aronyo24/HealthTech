@@ -2,10 +2,9 @@
 {% extends 'base.html' %}
 {% load static %}
 
-{% block title %}Home - EduCareSpace{% endblock %}
+{% block title %}Departments - HealthTech{% endblock %}
 
 {% block content %}
-  
 
     <!-- Page Title -->
     <div class="page-title">
@@ -13,13 +12,8 @@
         <div class="container">
           <div class="row d-flex justify-content-center text-center">
             <div class="col-lg-8">
-              <h1 class="heading-title">Departments</h1>
-              <p class="mb-0">
-                Odio et unde deleniti. Deserunt numquam exercitationem. Officiis quo
-                odio sint voluptas consequatur ut a odio voluptatem. Sit dolorum
-                debitis veritatis natus dolores. Quasi ratione sint. Sit quaerat
-                ipsum dolorem.
-              </p>
+              <h1 class="heading-title">Centers of Excellence</h1>
+              <p class="mb-0">HealthTech brings together specialty teams, digital tools, and integrated data to deliver coordinated care across every department.</p>
             </div>
           </div>
         </div>
@@ -27,7 +21,7 @@
       <nav class="breadcrumbs">
         <div class="container">
           <ol>
-            <li><a href="index.html">Home</a></li>
+            <li><a href="{% url 'home' %}">Home</a></li>
             <li class="current">Departments</li>
           </ol>
         </div>
@@ -54,16 +48,16 @@
                     <span class="department-category">Heart &amp; Vascular</span>
                   </div>
                 </div>
-                <p>Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Vestibulum tortor quam, feugiat vitae.</p>
+                <p>Hybrid cath labs, advanced imaging, and remote monitoring enable personalized programs for every heart condition.</p>
                 <div class="department-features">
-                  <span class="feature-badge">24/7 Emergency</span>
-                  <span class="feature-badge">Advanced Diagnostics</span>
+                  <span class="feature-badge">Structural Heart</span>
+                  <span class="feature-badge">Remote Monitoring</span>
                 </div>
               </div>
               <div class="department-image">
-                <img src="assets/img/health/cardiology-2.webp" alt="Cardiology Department" class="img-fluid">
+                <img src="{% static 'assets/img/health/cardiology-2.webp' %}" alt="HealthTech cardiology department" class="img-fluid">
                 <div class="department-overlay">
-                  <a href="#" class="department-link">
+                  <a href="{% url 'department_details' %}" class="department-link" title="Explore Cardiology">
                     <i class="fas fa-arrow-right"></i>
                   </a>
                 </div>
@@ -84,16 +78,16 @@
                     <span class="department-category">Brain &amp; Nervous System</span>
                   </div>
                 </div>
-                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+                <p>From stroke response to movement disorders, our neuro specialists use real-time imaging and AI-guided tools to accelerate diagnosis.</p>
                 <div class="department-features">
-                  <span class="feature-badge">MRI Available</span>
-                  <span class="feature-badge">Specialist Team</span>
+                  <span class="feature-badge">Stroke Rapid Response</span>
+                  <span class="feature-badge">Neuro Diagnostics</span>
                 </div>
               </div>
               <div class="department-image">
-                <img src="assets/img/health/neurology-3.webp" alt="Neurology Department" class="img-fluid">
+                <img src="{% static 'assets/img/health/neurology-3.webp' %}" alt="HealthTech neurology team" class="img-fluid">
                 <div class="department-overlay">
-                  <a href="#" class="department-link">
+                  <a href="{% url 'services' %}" class="department-link" title="See Neurology Services">
                     <i class="fas fa-arrow-right"></i>
                   </a>
                 </div>
@@ -111,19 +105,19 @@
                   </div>
                   <div class="department-info">
                     <h3>Orthopedics</h3>
-                    <span class="department-category">Bones &amp; Joints</span>
+                    <span class="department-category">Musculoskeletal Care</span>
                   </div>
                 </div>
-                <p>Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat duis aute.</p>
+                <p>Sports medicine physicians and orthopedic surgeons deliver motion-preserving procedures with accelerated rehab pathways.</p>
                 <div class="department-features">
-                  <span class="feature-badge">Sports Medicine</span>
-                  <span class="feature-badge">Joint Replacement</span>
+                  <span class="feature-badge">Same-Day Joint Clinic</span>
+                  <span class="feature-badge">Rehab Studio</span>
                 </div>
               </div>
               <div class="department-image">
-                <img src="assets/img/health/orthopedics-4.webp" alt="Orthopedics Department" class="img-fluid">
+                <img src="{% static 'assets/img/health/orthopedics-4.webp' %}" alt="HealthTech orthopedics team" class="img-fluid">
                 <div class="department-overlay">
-                  <a href="#" class="department-link">
+                  <a href="{% url 'services' %}" class="department-link" title="Discover Orthopedics">
                     <i class="fas fa-arrow-right"></i>
                   </a>
                 </div>
@@ -144,16 +138,16 @@
                     <span class="department-category">Children's Health</span>
                   </div>
                 </div>
-                <p>Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum sed.</p>
+                <p>Family-centered pediatricians, neonatologists, and therapists collaborate to support children from infancy through adolescence.</p>
                 <div class="department-features">
-                  <span class="feature-badge">Child-Friendly</span>
-                  <span class="feature-badge">Vaccination Center</span>
+                  <span class="feature-badge">Family Suites</span>
+                  <span class="feature-badge">Developmental Support</span>
                 </div>
               </div>
               <div class="department-image">
-                <img src="assets/img/health/pediatrics-2.webp" alt="Pediatrics Department" class="img-fluid">
+                <img src="{% static 'assets/img/health/pediatrics-2.webp' %}" alt="HealthTech pediatrics wing" class="img-fluid">
                 <div class="department-overlay">
-                  <a href="#" class="department-link">
+                  <a href="{% url 'services' %}" class="department-link" title="View Pediatric Care">
                     <i class="fas fa-arrow-right"></i>
                   </a>
                 </div>
@@ -170,20 +164,20 @@
                     <i class="fas fa-microscope"></i>
                   </div>
                   <div class="department-info">
-                    <h3>Laboratory</h3>
-                    <span class="department-category">Diagnostic Services</span>
+                    <h3>Diagnostics</h3>
+                    <span class="department-category">Imaging &amp; Laboratory</span>
                   </div>
                 </div>
-                <p>Nulla facilisi morbi tempus iaculis urna id volutpat lacus laoreet non curabitur gravida arcu ac tortor dignissim.</p>
+                <p>Same-day labs, pathology, and imaging services synchronize with your HealthTech record for faster clinical decisions.</p>
                 <div class="department-features">
-                  <span class="feature-badge">Quick Results</span>
-                  <span class="feature-badge">Digital Reports</span>
+                  <span class="feature-badge">Digital Results</span>
+                  <span class="feature-badge">24h Turnaround</span>
                 </div>
               </div>
               <div class="department-image">
-                <img src="assets/img/health/laboratory-3.webp" alt="Laboratory Department" class="img-fluid">
+                <img src="{% static 'assets/img/health/laboratory-3.webp' %}" alt="HealthTech diagnostics center" class="img-fluid">
                 <div class="department-overlay">
-                  <a href="#" class="department-link">
+                  <a href="{% url 'service_details' %}" class="department-link" title="Diagnostics Overview">
                     <i class="fas fa-arrow-right"></i>
                   </a>
                 </div>
@@ -197,24 +191,24 @@
               <div class="department-content">
                 <div class="department-header">
                   <div class="department-icon">
-                    <i class="fas fa-heartbeat"></i>
+                    <i class="fas fa-ambulance"></i>
                   </div>
                   <div class="department-info">
-                    <h3>Emergency</h3>
+                    <h3>Emergency Medicine</h3>
                     <span class="department-category">24/7 Critical Care</span>
                   </div>
                 </div>
-                <p>Convallis tellus id interdum velit laoreet id donec ultrices tincidunt arcu non sodales neque sodales ut etiam.</p>
+                <p>Level II trauma services, critical care transport, and virtual command centers ensure rapid response for every emergency.</p>
                 <div class="department-features">
-                  <span class="feature-badge">Round-the-Clock</span>
-                  <span class="feature-badge">Trauma Center</span>
+                  <span class="feature-badge">Trauma Team</span>
+                  <span class="feature-badge">Critical Transport</span>
                 </div>
               </div>
               <div class="department-image">
-                <img src="assets/img/health/emergency-4.webp" alt="Emergency Department" class="img-fluid">
+                <img src="{% static 'assets/img/health/emergency-4.webp' %}" alt="HealthTech emergency department" class="img-fluid">
                 <div class="department-overlay">
-                  <a href="#" class="department-link">
-                    <i class="fas fa-arrow-right"></i>
+                  <a href="tel:+19516849123" class="department-link" title="Emergency Care">
+                    <i class="fas fa-phone"></i>
                   </a>
                 </div>
               </div>

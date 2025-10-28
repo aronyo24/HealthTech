@@ -1,12 +1,9 @@
-
 {% extends 'base.html' %}
 {% load static %}
 
-{% block title %}Home - EduCareSpace{% endblock %}
+{% block title %}Home - HealthTech{% endblock %}
 
 {% block content %}
-  
-  
   <main class="main">
 
     <!-- Hero Section -->
@@ -15,24 +12,24 @@
         <div class="row align-items-center">
           <div class="col-lg-5">
             <div class="hero-image" data-aos="fade-right" data-aos-delay="100">
-              <img src="{% static 'assets/img/health/staff-8.webp' %}" alt="Healthcare Professional" class="img-fluid main-image">
+              <img src="{% static 'assets/img/health/staff-8.webp' %}" alt="HealthTech care navigator" class="img-fluid main-image">
               <div class="floating-card emergency-card" data-aos="fade-up" data-aos-delay="300">
                 <div class="card-content">
                   <i class="bi bi-telephone-fill"></i>
                   <div class="text">
-                    <span class="label">24/7 Emergency</span>
-                    <span class="number">+1 (555) 911-2468</span>
+                    <span class="label">24/7 Care Line</span>
+                    <span class="number">+1 (951) 684-9123</span>
                   </div>
                 </div>
               </div>
               <div class="floating-card stats-card" data-aos="fade-up" data-aos-delay="400">
                 <div class="stat-item">
-                  <span class="number">25K+</span>
-                  <span class="label">Patients Treated</span>
+                  <span class="number">22K+</span>
+                  <span class="label">Coordinated Journeys</span>
                 </div>
                 <div class="stat-item">
-                  <span class="number">98%</span>
-                  <span class="label">Satisfaction Rate</span>
+                  <span class="number">95%</span>
+                  <span class="label">Experience Rating</span>
                 </div>
               </div>
             </div>
@@ -41,33 +38,33 @@
           <div class="col-lg-7">
             <div class="hero-content" data-aos="fade-left" data-aos-delay="200">
               <div class="badge-container">
-                <span class="hero-badge">Trusted Healthcare Provider</span>
+                <span class="hero-badge">HealthTech Connected Care</span>
               </div>
 
-              <h1 class="hero-title">Excellence in Medical Care Since 1985</h1>
-              <p class="hero-description">Mauris blandit aliquet elit, eget tincidunt nibh pulvinar a. Pellentesque in ipsum id orci porta dapibus. Vivamus magna justo, lacinia eget consectetur sed, convallis at tellus.</p>
+              <h1 class="hero-title">Care That Connects Specialists, Data, and Families</h1>
+              <p class="hero-description">HealthTech blends compassionate clinicians, smart monitoring, and digital coordination so every patient enjoys a guided care journey from first consult to full recovery.</p>
 
               <div class="hero-stats">
                 <div class="stat-group">
                   <div class="stat">
-                    <i class="bi bi-award"></i>
+                    <i class="bi bi-heart-pulse"></i>
                     <div class="stat-text">
-                      <span class="number">35+</span>
-                      <span class="label">Years Experience</span>
+                      <span class="number">18</span>
+                      <span class="label">Integrated Programs</span>
                     </div>
                   </div>
                   <div class="stat">
                     <i class="bi bi-people"></i>
                     <div class="stat-text">
-                      <span class="number">150+</span>
-                      <span class="label">Medical Specialists</span>
+                      <span class="number">85+</span>
+                      <span class="label">Board-Certified Experts</span>
                     </div>
                   </div>
                   <div class="stat">
-                    <i class="bi bi-geo-alt"></i>
+                    <i class="bi bi-phone"></i>
                     <div class="stat-text">
-                      <span class="number">12</span>
-                      <span class="label">Clinic Locations</span>
+                      <span class="number">Digital</span>
+                      <span class="label">Patient Access Tools</span>
                     </div>
                   </div>
                 </div>
@@ -75,23 +72,23 @@
 
               <div class="cta-section">
                 <div class="cta-buttons">
-                  <a href="#" class="btn btn-primary">Schedule Consultation</a>
-                  <a href="https://www.youtube.com/watch?v=Y7f98aduVJ8" class="btn btn-secondary glightbox">
+                  <a href="{% url 'clinic:login' %}?next={% url 'clinic:book_appointment' %}" class="btn btn-primary">Book an Appointment</a>
+                  <a href="{% url 'about' %}" class="btn btn-secondary">
                     <i class="bi bi-play-circle"></i>
-                    Watch Our Story
+                    Meet HealthTech
                   </a>
                 </div>
 
                 <div class="quick-actions">
-                  <a href="#" class="action-link">
+                  <a href="{% url 'clinic:login' %}?next={% url 'clinic:book_appointment' %}" class="action-link">
                     <i class="bi bi-calendar-check"></i>
-                    <span>Find Available Times</span>
+                    <span>Check Availability</span>
                   </a>
-                  <a href="#" class="action-link">
+                  <a href="{% url 'contact' %}" class="action-link">
                     <i class="bi bi-chat-dots"></i>
-                    <span>Chat with Support</span>
+                    <span>Talk with Support</span>
                   </a>
-                  <a href="#" class="action-link">
+                  <a href="{% url 'clinic:login' %}" class="action-link">
                     <i class="bi bi-file-medical"></i>
                     <span>Patient Portal</span>
                   </a>
@@ -107,17 +104,15 @@
         <div class="bg-shape shape-2"></div>
         <div class="bg-pattern"></div>
       </div>
-    </section><!-- /Hero Section -->
+    </section>
 
     <!-- Home About Section -->
     <section id="home-about" class="home-about section">
-
       <div class="container" data-aos="fade-up" data-aos-delay="100">
-
         <div class="row">
           <div class="col-lg-8 mx-auto text-center mb-5" data-aos="fade-up" data-aos-delay="150">
-            <h2 class="section-heading">Excellence in Healthcare Since 1985</h2>
-            <p class="lead-description">We are committed to providing world-class medical care through innovation, compassion, and unwavering dedication to our patients' wellbeing and recovery.</p>
+            <h2 class="section-heading">Built for Personalized, Always-On Care</h2>
+            <p class="lead-description">Our hybrid model combines in-clinic visits, remote monitoring, and guided recovery plans so patients and their families stay informed and supported at each step.</p>
           </div>
         </div>
 
@@ -125,7 +120,7 @@
           <div class="col-lg-7" data-aos="fade-right" data-aos-delay="200">
             <div class="image-grid">
               <div class="primary-image">
-                <img src="{% static 'assets/img/health/facilities-6.webp' %}" alt="Modern hospital facility" class="img-fluid">
+                <img src="{% static 'assets/img/health/facilities-6.webp' %}" alt="HealthTech flagship facility" class="img-fluid">
                 <div class="certification-badge">
                   <i class="bi bi-award"></i>
                   <span>JCI Accredited</span>
@@ -133,10 +128,10 @@
               </div>
               <div class="secondary-images">
                 <div class="small-image">
-                  <img src="{% static 'assets/img/health/consultation-3.webp' %}" alt="Doctor consultation" class="img-fluid">
+                  <img src="{% static 'assets/img/health/consultation-3.webp' %}" alt="Modern telehealth consultation" class="img-fluid">
                 </div>
                 <div class="small-image">
-                  <img src="{% static 'assets/img/health/surgery-2.webp' %}" alt="Medical procedure" class="img-fluid">
+                  <img src="{% static 'assets/img/health/surgery-2.webp' %}" alt="Minimally invasive surgery" class="img-fluid">
                 </div>
               </div>
             </div>
@@ -149,8 +144,8 @@
                   <i class="bi bi-heart-pulse-fill"></i>
                 </div>
                 <div class="highlight-content">
-                  <h4>Patient-Centered Approach</h4>
-                  <p>Every treatment plan is carefully customized to meet individual patient needs and medical history.</p>
+                  <h4>Guided Care Navigation</h4>
+                  <p>Dedicated coordinators align diagnostics, specialty consults, and rehabilitation to keep every care plan on track.</p>
                 </div>
               </div>
 
@@ -159,99 +154,93 @@
                   <div class="feature-icon">
                     <i class="bi bi-check-circle-fill"></i>
                   </div>
-                  <div class="feature-text">Advanced diagnostic technology and imaging</div>
+                  <div class="feature-text">Unified digital record shared across HealthTech teams</div>
                 </div>
                 <div class="feature-item">
                   <div class="feature-icon">
                     <i class="bi bi-check-circle-fill"></i>
                   </div>
-                  <div class="feature-text">Board-certified physicians and specialists</div>
+                  <div class="feature-text">Same-day diagnostics with secure results delivery</div>
                 </div>
                 <div class="feature-item">
                   <div class="feature-icon">
                     <i class="bi bi-check-circle-fill"></i>
                   </div>
-                  <div class="feature-text">Comprehensive rehabilitation programs</div>
+                  <div class="feature-text">Personalized recovery pathways backed by analytics</div>
                 </div>
                 <div class="feature-item">
                   <div class="feature-icon">
                     <i class="bi bi-check-circle-fill"></i>
                   </div>
-                  <div class="feature-text">24/7 emergency and critical care services</div>
+                  <div class="feature-text">24/7 virtual triage and urgent consult options</div>
                 </div>
               </div>
 
               <div class="metrics-row">
                 <div class="metric-box">
                   <div class="metric-number">
-                    <span class="purecounter" data-purecounter-start="0" data-purecounter-end="98" data-purecounter-duration="0">98</span>%
+                    <span class="purecounter" data-purecounter-start="0" data-purecounter-end="22000" data-purecounter-duration="0">22000</span>
                   </div>
-                  <div class="metric-label">Patient Satisfaction</div>
+                  <div class="metric-label">Patients Supported</div>
                 </div>
                 <div class="metric-box">
                   <div class="metric-number">
-                    <span class="purecounter" data-purecounter-start="0" data-purecounter-end="35" data-purecounter-duration="0">35</span>K+
+                    <span class="purecounter" data-purecounter-start="0" data-purecounter-end="95" data-purecounter-duration="0">95</span>%
                   </div>
-                  <div class="metric-label">Lives Improved</div>
+                  <div class="metric-label">Satisfaction Rating</div>
                 </div>
               </div>
 
               <div class="action-buttons">
-                <a href="about.html" class="btn-explore">Explore Our Services</a>
-                <a href="contact.html" class="btn-contact">
+                <a href="{% url 'services' %}" class="btn-explore">Explore Our Programs</a>
+                <a href="{% url 'contact' %}" class="btn-contact">
                   <i class="bi bi-telephone"></i>
-                  Schedule Consultation
+                  Speak with Care Team
                 </a>
               </div>
             </div>
           </div>
         </div>
+      </div>
+    </section>
 
+    <!-- Clinical Programs Section -->
+    <section id="featured-departments" class="featured-departments section">
+      <div class="container section-title" data-aos="fade-up">
+        <h2>Clinical Programs</h2>
+        <p>HealthTech departments partner across disciplines to deliver proactive, technology-enabled care plans.</p>
       </div>
 
-    </section><!-- /Home About Section -->
-
-    <!-- Featured Departments Section -->
-    <section id="featured-departments" class="featured-departments section">
-
-      <!-- Section Title -->
-      <div class="container section-title" data-aos="fade-up">
-        <h2>Featured Departments</h2>
-        <p>Necessitatibus eius consequatur ex aliquid fuga eum quidem sint consectetur velit</p>
-      </div><!-- End Section Title -->
-
       <div class="container" data-aos="fade-up" data-aos-delay="100">
-
         <div class="departments-showcase">
-
           <div class="featured-department" data-aos="fade-up" data-aos-delay="200">
             <div class="row align-items-center">
               <div class="col-lg-6 order-lg-1">
                 <div class="department-content">
                   <div class="department-category">Emergency Medicine</div>
-                  <h2 class="department-title">24/7 Emergency Care Services</h2>
-                  <p class="department-description">Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo.</p>
+                  <h2 class="department-title">Real-Time Emergency &amp; Critical Response</h2>
+                  <p class="department-description">Our command center connects ambulance teams, trauma surgeons, and remote specialists so patients receive immediate, coordinated intervention the moment they arrive.</p>
                   <div class="department-features">
                     <div class="feature-item">
                       <i class="fas fa-check-circle"></i>
-                      <span>24/7 Emergency Response</span>
+                      <span>Dedicated trauma bays with tele-intensivists</span>
                     </div>
                     <div class="feature-item">
                       <i class="fas fa-check-circle"></i>
-                      <span>Advanced Life Support</span>
+                      <span>24/7 stroke and cardiac activation pathways</span>
                     </div>
                     <div class="feature-item">
                       <i class="fas fa-check-circle"></i>
-                      <span>Trauma Care Specialists</span>
+                      <span>Family liaison updates every step of the way</span>
                     </div>
                   </div>
-                  <a href="#" class="cta-link">Learn More <i class="fas fa-arrow-right"></i></a>
+                  <a href="{% url 'departments' %}" class="cta-link">Explore Emergency Care <i class="fas fa-arrow-right"></i></a>
                 </div>
               </div>
               <div class="col-lg-6 order-lg-2">
                 <div class="department-visual">
                   <div class="image-wrapper">
-                    <img src="{% static 'assets/img/health/emergency-3.webp' %}" alt="Emergency Department" class="img-fluid">
+                    <img src="{% static 'assets/img/health/emergency-3.webp' %}" alt="HealthTech emergency department" class="img-fluid">
                   </div>
                 </div>
               </div>
@@ -259,23 +248,45 @@
           </div>
 
           <div class="departments-grid">
-            <div class="row">
-              <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="300">
+            <div class="row g-4">
+              <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="250">
                 <div class="department-card">
                   <div class="card-icon">
                     <i class="fas fa-heartbeat"></i>
                   </div>
                   <div class="card-content">
-                    <h3 class="card-title">Cardiology</h3>
-                    <p class="card-description">Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores.</p>
+                    <h3 class="card-title">Heart &amp; Vascular</h3>
+                    <p class="card-description">Comprehensive cardiology services with structural heart interventions, advanced imaging, and cardiac rehabilitation in one coordinated hub.</p>
                     <div class="card-stats">
                       <div class="stat-item">
-                        <span class="stat-number">15+</span>
-                        <span class="stat-label">Specialists</span>
+                        <span class="stat-number">Remote</span>
+                        <span class="stat-label">Rhythm Monitoring</span>
                       </div>
                       <div class="stat-item">
-                        <span class="stat-number">500+</span>
-                        <span class="stat-label">Procedures</span>
+                        <span class="stat-number">Onsite</span>
+                        <span class="stat-label">Cath Labs</span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="300">
+                <div class="department-card">
+                  <div class="card-icon">
+                    <i class="fas fa-brain"></i>
+                  </div>
+                  <div class="card-content">
+                    <h3 class="card-title">Neurosciences</h3>
+                    <p class="card-description">Integrated neurology and neurosurgery clinics deliver rapid diagnostics, infusion therapy, and complex surgical care supported by virtual follow-up.</p>
+                    <div class="card-stats">
+                      <div class="stat-item">
+                        <span class="stat-number">24/7</span>
+                        <span class="stat-label">Stroke Coverage</span>
+                      </div>
+                      <div class="stat-item">
+                        <span class="stat-number">Cross-Discipline</span>
+                        <span class="stat-label">Rehab Team</span>
                       </div>
                     </div>
                   </div>
@@ -285,107 +296,19 @@
               <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="350">
                 <div class="department-card">
                   <div class="card-icon">
-                    <i class="fas fa-brain"></i>
+                    <i class="fas fa-seedling"></i>
                   </div>
                   <div class="card-content">
-                    <h3 class="card-title">Neurology</h3>
-                    <p class="card-description">Eos qui ratione voluptatem sequi nesciunt neque porro quisquam est, qui dolorem ipsum quia dolor sit amet.</p>
+                    <h3 class="card-title">Women &amp; Family</h3>
+                    <p class="card-description">From prenatal navigation to pediatric specialists, our team provides whole-family care with lactation support, NICU partnerships, and digital milestone tracking.</p>
                     <div class="card-stats">
                       <div class="stat-item">
-                        <span class="stat-number">8+</span>
-                        <span class="stat-label">Specialists</span>
+                        <span class="stat-number">Continuity</span>
+                        <span class="stat-label">Mother &amp; Baby Plans</span>
                       </div>
                       <div class="stat-item">
-                        <span class="stat-number">200+</span>
-                        <span class="stat-label">Treatments</span>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-
-              <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="400">
-                <div class="department-card">
-                  <div class="card-icon">
-                    <i class="fas fa-cut"></i>
-                  </div>
-                  <div class="card-content">
-                    <h3 class="card-title">Surgery</h3>
-                    <p class="card-description">Consectetur adipisci velit sed quia non numquam eius modi tempora incidunt ut labore et dolore magnam aliquam.</p>
-                    <div class="card-stats">
-                      <div class="stat-item">
-                        <span class="stat-number">12+</span>
-                        <span class="stat-label">Surgeons</span>
-                      </div>
-                      <div class="stat-item">
-                        <span class="stat-number">1000+</span>
-                        <span class="stat-label">Operations</span>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-
-              <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="450">
-                <div class="department-card">
-                  <div class="card-icon">
-                    <i class="fas fa-baby"></i>
-                  </div>
-                  <div class="card-content">
-                    <h3 class="card-title">Pediatrics</h3>
-                    <p class="card-description">Quaerat voluptatem ut enim ad minima veniam quis nostrum exercitationem ullam corporis suscipit laboriosam.</p>
-                    <div class="card-stats">
-                      <div class="stat-item">
-                        <span class="stat-number">10+</span>
-                        <span class="stat-label">Pediatricians</span>
-                      </div>
-                      <div class="stat-item">
-                        <span class="stat-number">2000+</span>
-                        <span class="stat-label">Young Patients</span>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-
-              <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="500">
-                <div class="department-card">
-                  <div class="card-icon">
-                    <i class="fas fa-eye"></i>
-                  </div>
-                  <div class="card-content">
-                    <h3 class="card-title">Ophthalmology</h3>
-                    <p class="card-description">Nisi ut aliquid ex ea commodi consequatur quis autem vel eum iure reprehenderit qui in ea voluptate velit esse.</p>
-                    <div class="card-stats">
-                      <div class="stat-item">
-                        <span class="stat-number">6+</span>
-                        <span class="stat-label">Eye Doctors</span>
-                      </div>
-                      <div class="stat-item">
-                        <span class="stat-number">800+</span>
-                        <span class="stat-label">Eye Exams</span>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-
-              <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="550">
-                <div class="department-card">
-                  <div class="card-icon">
-                    <i class="fas fa-band-aid"></i>
-                  </div>
-                  <div class="card-content">
-                    <h3 class="card-title">Dermatology</h3>
-                    <p class="card-description">Quam nihil molestiae consequatur vel illum qui dolorem eum fugiat quo voluptas nulla pariatur at vero eos.</p>
-                    <div class="card-stats">
-                      <div class="stat-item">
-                        <span class="stat-number">7+</span>
-                        <span class="stat-label">Dermatologists</span>
-                      </div>
-                      <div class="stat-item">
-                        <span class="stat-number">600+</span>
-                        <span class="stat-label">Skin Treatments</span>
+                        <span class="stat-number">24/7</span>
+                        <span class="stat-label">Nurse Hotline</span>
                       </div>
                     </div>
                   </div>
@@ -394,444 +317,194 @@
             </div>
           </div>
 
-          <div class="departments-cta" data-aos="fade-up" data-aos-delay="600">
+          <div class="departments-cta" data-aos="fade-up" data-aos-delay="400">
             <div class="cta-content">
-              <h3 class="cta-title">Explore All Our Medical Departments</h3>
-              <p class="cta-description">Et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum deleniti atque corrupti quos dolores.</p>
-              <a href="#" class="btn btn-primary">View All Departments</a>
+              <h3 class="cta-title">Need a Different Specialty?</h3>
+              <p class="cta-description">Browse all HealthTech departments to find the right specialists, program coordinators, and digital tools for your care goals.</p>
+              <a href="{% url 'departments' %}" class="btn btn-primary">View All Departments</a>
             </div>
           </div>
-
         </div>
+      </div>
+    </section>
 
+    <!-- HealthTech Services Section -->
+    <section id="featured-services" class="featured-services section">
+      <div class="container section-title" data-aos="fade-up">
+        <h2>HealthTech Services</h2>
+        <p>Programs combine in-person excellence with remote monitoring, care coaching, and transparent digital updates.</p>
       </div>
 
-    </section><!-- /Featured Departments Section -->
-
-    <!-- Featured Services Section -->
-    <section id="featured-services" class="featured-services section">
-
-      <!-- Section Title -->
-      <div class="container section-title" data-aos="fade-up">
-        <h2>Featured Services</h2>
-        <p>Necessitatibus eius consequatur ex aliquid fuga eum quidem sint consectetur velit</p>
-      </div><!-- End Section Title -->
-
       <div class="container" data-aos="fade-up" data-aos-delay="100">
-
         <div class="row gy-4">
-
           <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="200">
             <div class="service-card">
               <div class="service-icon">
-                <i class="fas fa-heartbeat"></i>
+                <i class="fas fa-stethoscope"></i>
               </div>
               <div class="service-image">
-                <img src="{% static 'assets/img/health/cardiology-2.webp' %}" alt="Service" class="img-fluid" loading="lazy">
+                <img src="{% static 'assets/img/health/cardiology-2.webp' %}" alt="Primary and specialty coordination" class="img-fluid" loading="lazy">
               </div>
               <div class="service-content">
-                <h3>Cardiology Excellence</h3>
-                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia curae.</p>
-                <a href="#" class="service-link">Learn More <i class="fas fa-arrow-right"></i></a>
+                <h3>Coordinated Primary Care</h3>
+                <p>Continuity visits, chronic condition roadmaps, and preventive screenings delivered virtually and in our neighborhood clinics.</p>
+                <a href="{% url 'services' %}" class="service-link">See Primary Care <i class="fas fa-arrow-right"></i></a>
               </div>
             </div>
-          </div><!-- End Service Card -->
+          </div>
+
+          <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="250">
+            <div class="service-card">
+              <div class="service-icon">
+                <i class="fas fa-heart"></i>
+              </div>
+              <div class="service-image">
+                <img src="{% static 'assets/img/health/neurology-3.webp' %}" alt="Remote monitoring tools" class="img-fluid" loading="lazy">
+              </div>
+              <div class="service-content">
+                <h3>Connected Specialty Clinics</h3>
+                <p>Multidisciplinary teams manage complex cases with shared care plans, digital tracking, and real-time consults.</p>
+                <a href="{% url 'service_details' %}" class="service-link">Specialty Insights <i class="fas fa-arrow-right"></i></a>
+              </div>
+            </div>
+          </div>
 
           <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="300">
-            <div class="service-card">
-              <div class="service-icon">
-                <i class="fas fa-brain"></i>
-              </div>
-              <div class="service-image">
-                <img src="{% static 'assets/img/health/neurology-3.webp' %}" alt="Service" class="img-fluid" loading="lazy">
-              </div>
-              <div class="service-content">
-                <h3>Neurology Care</h3>
-                <p>Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi.</p>
-                <a href="#" class="service-link">Learn More <i class="fas fa-arrow-right"></i></a>
-              </div>
-            </div>
-          </div><!-- End Service Card -->
-
-          <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="400">
-            <div class="service-card">
-              <div class="service-icon">
-                <i class="fas fa-bone"></i>
-              </div>
-              <div class="service-image">
-                <img src="{% static 'assets/img/health/orthopedics-1.webp' %}" alt="Service" class="img-fluid" loading="lazy">
-              </div>
-              <div class="service-content">
-                <h3>Orthopedic Surgery</h3>
-                <p>Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident.</p>
-                <a href="#" class="service-link">Learn More <i class="fas fa-arrow-right"></i></a>
-              </div>
-            </div>
-          </div><!-- End Service Card -->
-
-          <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="200">
-            <div class="service-card">
-              <div class="service-icon">
-                <i class="fas fa-baby"></i>
-              </div>
-              <div class="service-image">
-                <img src="{% static 'assets/img/health/pediatrics-4.webp' %}" alt="Service" class="img-fluid" loading="lazy">
-              </div>
-              <div class="service-content">
-                <h3>Pediatric Care</h3>
-                <p>Sunt in culpa qui officia deserunt mollit anim id est laborum. Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium.</p>
-                <a href="#" class="service-link">Learn More <i class="fas fa-arrow-right"></i></a>
-              </div>
-            </div>
-          </div><!-- End Service Card -->
-
-          <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="300">
-            <div class="service-card">
-              <div class="service-icon">
-                <i class="fas fa-ribbon"></i>
-              </div>
-              <div class="service-image">
-                <img src="{% static 'assets/img/health/oncology-2.webp' %}" alt="Service" class="img-fluid" loading="lazy">
-              </div>
-              <div class="service-content">
-                <h3>Oncology Treatment</h3>
-                <p>At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum deleniti atque corrupti quos dolores et quas molestias.</p>
-                <a href="#" class="service-link">Learn More <i class="fas fa-arrow-right"></i></a>
-              </div>
-            </div>
-          </div><!-- End Service Card -->
-
-          <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="400">
             <div class="service-card">
               <div class="service-icon">
                 <i class="fas fa-flask"></i>
               </div>
               <div class="service-image">
-                <img src="{% static 'assets/img/health/laboratory-3.webp' %}" alt="Service" class="img-fluid" loading="lazy">
+                <img src="{% static 'assets/img/health/laboratory-3.webp' %}" alt="HealthTech diagnostics" class="img-fluid" loading="lazy">
               </div>
               <div class="service-content">
-                <h3>Laboratory Services</h3>
-                <p>Temporibus autem quibusdam et aut officiis debitis aut rerum necessitatibus saepe eveniet ut et voluptates repudiandae sint et molestiae non recusandae.</p>
-                <a href="#" class="service-link">Learn More <i class="fas fa-arrow-right"></i></a>
+                <h3>Precision Diagnostics</h3>
+                <p>Same-day imaging and lab panels integrate directly with your HealthTech portal for quick specialist review and next steps.</p>
+                <a href="{% url 'services' %}" class="service-link">Diagnostics Overview <i class="fas fa-arrow-right"></i></a>
               </div>
             </div>
-          </div><!-- End Service Card -->
+          </div>
 
+          <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="350">
+            <div class="service-card">
+              <div class="service-icon">
+                <i class="fas fa-hands-helping"></i>
+              </div>
+              <div class="service-image">
+                <img src="{% static 'assets/img/health/orthopedics-1.webp' %}" alt="Rehabilitation and wellness" class="img-fluid" loading="lazy">
+              </div>
+              <div class="service-content">
+                <h3>Recovery &amp; Wellness</h3>
+                <p>Integrated rehabilitation, virtual coaching, and wellness workshops help patients regain strength and maintain long-term health.</p>
+                <a href="{% url 'services' %}" class="service-link">Recovery Pathways <i class="fas fa-arrow-right"></i></a>
+              </div>
+            </div>
+          </div>
         </div>
+      </div>
+    </section>
 
+    <!-- Find a Doctor Section -->
+    <section id="find-a-doctor" class="find-a-doctor section">
+      <div class="container section-title" data-aos="fade-up">
+        <h2>Find a HealthTech Specialist</h2>
+        <p>Search our connected network of physicians, nurse practitioners, and care teams ready to guide your next step.</p>
       </div>
 
-    </section><!-- /Featured Services Section -->
-
-    <!-- Find A Doctor Section -->
-    <section id="find-a-doctor" class="find-a-doctor section">
-
-      <!-- Section Title -->
-      <div class="container section-title" data-aos="fade-up">
-        <h2>Find A Doctor</h2>
-        <p>Necessitatibus eius consequatur ex aliquid fuga eum quidem sint consectetur velit</p>
-      </div><!-- End Section Title -->
-
       <div class="container" data-aos="fade-up" data-aos-delay="100">
-
         <div class="row justify-content-center" data-aos="fade-up" data-aos-delay="200">
           <div class="col-lg-10">
             <div class="search-header">
-              <h2>Discover Your Ideal Medical Specialist</h2>
-              <p>Connect with our network of certified healthcare professionals across all medical disciplines</p>
-            </div>
-
-            <div class="advanced-search-container">
-              <form class="search-form" action="forms/doctor-search.php" method="get">
-                <div class="search-row">
-                  <div class="search-field">
-                    <label>Practitioner Name</label>
-                    <div class="input-group">
-                      <i class="bi bi-search"></i>
-                      <input type="text" class="form-control" name="doctor_name" placeholder="Search by name...">
-                    </div>
-                  </div>
-                  <div class="search-field">
-                    <label>Medical Specialty</label>
-                    <div class="select-group">
-                      <i class="bi bi-plus-circle"></i>
-                      <select class="form-select" name="specialty">
-                        <option value="">Select specialty</option>
-                        <option value="cardiology">Cardiovascular Medicine</option>
-                        <option value="neurology">Neurological Sciences</option>
-                        <option value="orthopedics">Orthopedic Surgery</option>
-                        <option value="pediatrics">Pediatric Medicine</option>
-                        <option value="dermatology">Dermatological Care</option>
-                        <option value="oncology">Oncological Treatment</option>
-                      </select>
-                    </div>
-                  </div>
-                  <div class="search-field">
-                    <label>Location</label>
-                    <div class="select-group">
-                      <i class="bi bi-geo-alt"></i>
-                      <select class="form-select" name="location">
-                        <option value="">All locations</option>
-                        <option value="downtown">Downtown Medical Center</option>
-                        <option value="northside">Northside Clinic</option>
-                        <option value="westend">West End Hospital</option>
-                      </select>
-                    </div>
-                  </div>
-                  <button type="submit" class="search-submit">
-                    <i class="bi bi-arrow-right"></i>
-                  </button>
-                </div>
-              </form>
+              <h2>Start with a Featured Physician</h2>
+              <p>Every HealthTech specialist collaborates through shared records and coordinated appointment windows.</p>
             </div>
           </div>
         </div>
 
-        <div class="specialists-showcase" data-aos="fade-up" data-aos-delay="300">
-          <div class="specialist-card featured" data-aos="slide-up" data-aos-delay="100">
-            <div class="card-content">
-              <div class="specialist-info">
-                <div class="profile-section">
-                  <div class="profile-image">
-                    <img src="{% static 'assets/img/health/staff-1.webp' %}" alt="Dr. Jennifer Morgan" class="img-fluid">
-                    <div class="online-status active"></div>
-                  </div>
-                  <div class="specialist-data">
-                    <h3>Dr. Jennifer Morgan</h3>
-                    <p class="specialty">Senior Cardiologist</p>
-                    <div class="credentials">
-                      <span class="badge">MD, FACC</span>
-                      <span class="experience">18 years</span>
+        <div class="specialists-showcase" data-aos="fade-up" data-aos-delay="250">
+          {% if featured_doctors %}
+            {% for doctor in featured_doctors %}
+              <div class="specialist-card{% if doctor.is_featured %} featured{% endif %}" data-aos="slide-up" data-aos-delay="{{ forloop.counter|add:"2" }}00">
+                <div class="card-content">
+                  <div class="specialist-info">
+                    <div class="profile-section">
+                      <div class="profile-image">
+                        {% if doctor.photo %}
+                          <img src="{{ doctor.photo.url }}" alt="{{ doctor.name }}" class="img-fluid">
+                        {% else %}
+                          <img src="{% static 'assets/img/health/staff-1.webp' %}" alt="{{ doctor.name }}" class="img-fluid">
+                        {% endif %}
+                      </div>
+                      <div class="specialist-data">
+                        <h3>{{ doctor.name }}</h3>
+                        <p class="specialty">{{ doctor.department|default:doctor.specialization }}</p>
+                        <div class="credentials">
+                          {% if doctor.qualifications %}
+                            <span class="badge">{{ doctor.qualifications }}</span>
+                          {% endif %}
+                          {% if doctor.years_of_experience %}
+                            <span class="experience">{{ doctor.years_of_experience }} years experience</span>
+                          {% endif %}
+                        </div>
+                      </div>
+                    </div>
+                    <div class="rating-info">
+                      {% if doctor.location %}
+                        <span class="location"><i class="bi bi-geo-alt"></i> {{ doctor.location }}</span>
+                      {% endif %}
+                      {% if doctor.highlight %}
+                        <span class="focus">{{ doctor.highlight }}</span>
+                      {% endif %}
                     </div>
                   </div>
-                </div>
-                <div class="rating-info">
-                  <div class="stars-display">
-                    <i class="bi bi-star-fill"></i>
-                    <i class="bi bi-star-fill"></i>
-                    <i class="bi bi-star-fill"></i>
-                    <i class="bi bi-star-fill"></i>
-                    <i class="bi bi-star-fill"></i>
+                  <div class="doctor-summary">
+                    {% with doctor.short_bio|default_if_none:"" as summary %}
+                      {% if summary %}
+                        <p>{{ summary|truncatewords:26 }}</p>
+                      {% elif doctor.bio %}
+                        <p>{{ doctor.bio|truncatewords:26 }}</p>
+                      {% else %}
+                        <p>Collaborates with HealthTech care teams to build personalized treatment paths supported by digital check-ins.</p>
+                      {% endif %}
+                    {% endwith %}
                   </div>
-                  <span class="score">4.9</span>
-                  <small>(142 patients)</small>
+                  <div class="quick-actions">
+                    <a href="{% url 'doctor_detail' doctor.slug %}" class="action-btn outline">View Profile</a>
+                    <a href="{% url 'clinic:login' %}?next={% url 'clinic:book_appointment' %}" class="action-btn primary">Book Visit</a>
+                  </div>
                 </div>
               </div>
-              <div class="quick-actions">
-                <a href="#" class="action-btn outline">Profile</a>
-                <a href="#" class="action-btn primary">Consult</a>
-              </div>
+            {% endfor %}
+          {% else %}
+            <div class="text-center py-5">
+              <p class="mb-3">Our physician directory is being refreshed. Please contact the HealthTech care team and we will connect you with the right specialist.</p>
+              <a href="{% url 'contact' %}" class="btn btn-primary">Contact Care Team</a>
             </div>
-          </div>
-
-          <div class="specialist-card" data-aos="slide-up" data-aos-delay="200">
-            <div class="card-content">
-              <div class="specialist-info">
-                <div class="profile-section">
-                  <div class="profile-image">
-                    <img src="{% static 'assets/img/health/staff-3.webp' %}" alt="Dr. Robert Kim" class="img-fluid">
-                    <div class="online-status busy"></div>
-                  </div>
-                  <div class="specialist-data">
-                    <h3>Dr. Robert Kim</h3>
-                    <p class="specialty">Neurosurgeon</p>
-                    <div class="credentials">
-                      <span class="badge">MD, PhD</span>
-                      <span class="experience">24 years</span>
-                    </div>
-                  </div>
-                </div>
-                <div class="rating-info">
-                  <div class="stars-display">
-                    <i class="bi bi-star-fill"></i>
-                    <i class="bi bi-star-fill"></i>
-                    <i class="bi bi-star-fill"></i>
-                    <i class="bi bi-star-fill"></i>
-                    <i class="bi bi-star-half"></i>
-                  </div>
-                  <span class="score">4.8</span>
-                  <small>(98 patients)</small>
-                </div>
-              </div>
-              <div class="quick-actions">
-                <a href="#" class="action-btn outline">Profile</a>
-                <a href="#" class="action-btn primary">Schedule</a>
-              </div>
-            </div>
-          </div>
-
-          <div class="specialist-card" data-aos="slide-up" data-aos-delay="300">
-            <div class="card-content">
-              <div class="specialist-info">
-                <div class="profile-section">
-                  <div class="profile-image">
-                    <img src="{% static 'assets/img/health/staff-5.webp' %}" alt="Dr. Sarah Thompson" class="img-fluid">
-                    <div class="online-status active"></div>
-                  </div>
-                  <div class="specialist-data">
-                    <h3>Dr. Sarah Thompson</h3>
-                    <p class="specialty">Pediatric Specialist</p>
-                    <div class="credentials">
-                      <span class="badge">MD, FAAP</span>
-                      <span class="experience">12 years</span>
-                    </div>
-                  </div>
-                </div>
-                <div class="rating-info">
-                  <div class="stars-display">
-                    <i class="bi bi-star-fill"></i>
-                    <i class="bi bi-star-fill"></i>
-                    <i class="bi bi-star-fill"></i>
-                    <i class="bi bi-star-fill"></i>
-                    <i class="bi bi-star-fill"></i>
-                  </div>
-                  <span class="score">5.0</span>
-                  <small>(156 patients)</small>
-                </div>
-              </div>
-              <div class="quick-actions">
-                <a href="#" class="action-btn outline">Profile</a>
-                <a href="#" class="action-btn primary">Book Now</a>
-              </div>
-            </div>
-          </div>
-
-          <div class="specialist-card" data-aos="slide-up" data-aos-delay="400">
-            <div class="card-content">
-              <div class="specialist-info">
-                <div class="profile-section">
-                  <div class="profile-image">
-                    <img src="{% static 'assets/img/health/staff-7.webp' %}" alt="Dr. Michael Rivera" class="img-fluid">
-                    <div class="online-status offline"></div>
-                  </div>
-                  <div class="specialist-data">
-                    <h3>Dr. Michael Rivera</h3>
-                    <p class="specialty">Orthopedic Surgeon</p>
-                    <div class="credentials">
-                      <span class="badge">MD, FAAOS</span>
-                      <span class="experience">20 years</span>
-                    </div>
-                  </div>
-                </div>
-                <div class="rating-info">
-                  <div class="stars-display">
-                    <i class="bi bi-star-fill"></i>
-                    <i class="bi bi-star-fill"></i>
-                    <i class="bi bi-star-fill"></i>
-                    <i class="bi bi-star-fill"></i>
-                    <i class="bi bi-star-half"></i>
-                  </div>
-                  <span class="score">4.7</span>
-                  <small>(134 patients)</small>
-                </div>
-              </div>
-              <div class="quick-actions">
-                <a href="#" class="action-btn outline">Profile</a>
-                <a href="#" class="action-btn primary">Request</a>
-              </div>
-            </div>
-          </div>
-
-          <div class="specialist-card" data-aos="slide-up" data-aos-delay="500">
-            <div class="card-content">
-              <div class="specialist-info">
-                <div class="profile-section">
-                  <div class="profile-image">
-                    <img src="{% static 'assets/img/health/staff-9.webp' %}" alt="Dr. Lisa Garcia" class="img-fluid">
-                    <div class="online-status active"></div>
-                  </div>
-                  <div class="specialist-data">
-                    <h3>Dr. Lisa Garcia</h3>
-                    <p class="specialty">Dermatologist</p>
-                    <div class="credentials">
-                      <span class="badge">MD, FAAD</span>
-                      <span class="experience">15 years</span>
-                    </div>
-                  </div>
-                </div>
-                <div class="rating-info">
-                  <div class="stars-display">
-                    <i class="bi bi-star-fill"></i>
-                    <i class="bi bi-star-fill"></i>
-                    <i class="bi bi-star-fill"></i>
-                    <i class="bi bi-star-fill"></i>
-                    <i class="bi bi-star"></i>
-                  </div>
-                  <span class="score">4.6</span>
-                  <small>(89 patients)</small>
-                </div>
-              </div>
-              <div class="quick-actions">
-                <a href="#" class="action-btn outline">Profile</a>
-                <a href="#" class="action-btn primary">Consult</a>
-              </div>
-            </div>
-          </div>
-
-          <div class="specialist-card" data-aos="slide-up" data-aos-delay="600">
-            <div class="card-content">
-              <div class="specialist-info">
-                <div class="profile-section">
-                  <div class="profile-image">
-                    <img src="{% static 'assets/img/health/staff-12.webp' %}" alt="Dr. Daniel Wong" class="img-fluid">
-                    <div class="online-status active"></div>
-                  </div>
-                  <div class="specialist-data">
-                    <h3>Dr. Daniel Wong</h3>
-                    <p class="specialty">Oncology Expert</p>
-                    <div class="credentials">
-                      <span class="badge">MD, FASCO</span>
-                      <span class="experience">21 years</span>
-                    </div>
-                  </div>
-                </div>
-                <div class="rating-info">
-                  <div class="stars-display">
-                    <i class="bi bi-star-fill"></i>
-                    <i class="bi bi-star-fill"></i>
-                    <i class="bi bi-star-fill"></i>
-                    <i class="bi bi-star-fill"></i>
-                    <i class="bi bi-star-fill"></i>
-                  </div>
-                  <span class="score">4.9</span>
-                  <small>(211 patients)</small>
-                </div>
-              </div>
-              <div class="quick-actions">
-                <a href="#" class="action-btn outline">Profile</a>
-                <a href="#" class="action-btn primary">Appointment</a>
-              </div>
-            </div>
-          </div>
-
+          {% endif %}
         </div>
 
-        <div class="text-center mt-5" data-aos="fade-up" data-aos-delay="700">
-          <a href="specialists.html" class="view-all-link">
+        <div class="text-center mt-5" data-aos="fade-up" data-aos-delay="350">
+          <a href="{% url 'doctors' %}" class="view-all-link">
             Browse Complete Directory
             <i class="bi bi-chevron-right"></i>
           </a>
         </div>
-
       </div>
-
-    </section><!-- /Find A Doctor Section -->
+    </section>
 
     <!-- Call To Action Section -->
     <section id="call-to-action" class="call-to-action section light-background">
-
       <div class="container" data-aos="fade-up" data-aos-delay="100">
-
         <div class="hero-content" data-aos="fade-up" data-aos-delay="200">
           <div class="row align-items-center">
             <div class="col-lg-6">
               <div class="content-wrapper">
-                <h2>Exceptional Care for Your Health Journey</h2>
-                <p>Discover comprehensive healthcare services delivered with compassion and expertise. Our dedicated team is committed to providing personalized medical care that puts you first.</p>
+                <h2>Ready to Plan Your Next Visit?</h2>
+                <p>Schedule your consultation, update your digital record, or message our care team to keep your treatment on track.</p>
 
                 <div class="action-buttons">
-                  <a href="appointment.html" class="primary-btn">Schedule Consultation</a>
-                  <a href="services.html" class="secondary-link">
+                  <a href="{% url 'clinic:login' %}?next={% url 'clinic:book_appointment' %}" class="primary-btn">Book Online</a>
+                  <a href="{% url 'services' %}" class="secondary-link">
                     <span>Explore Services</span>
                     <i class="fas fa-arrow-right"></i>
                   </a>
@@ -840,81 +513,79 @@
             </div>
             <div class="col-lg-6">
               <div class="hero-image" data-aos="zoom-in" data-aos-delay="300">
-                <img src="{% static 'assets/img/health/showcase-2.webp' %}" alt="Healthcare Excellence" class="img-fluid">
+                <img src="{% static 'assets/img/health/showcase-2.webp' %}" alt="HealthTech care team collaboration" class="img-fluid">
               </div>
             </div>
           </div>
         </div>
 
-        <div class="stats-section" data-aos="fade-up" data-aos-delay="400">
+        <div class="stats-section" data-aos="fade-up" data-aos-delay="250">
           <div class="row">
             <div class="col-lg-3 col-md-6">
               <div class="stat-item">
-                <div class="stat-number">25+</div>
-                <div class="stat-label">Years Experience</div>
+                <div class="stat-number">4.8/5</div>
+                <div class="stat-label">Average Patient Feedback</div>
               </div>
             </div>
             <div class="col-lg-3 col-md-6">
               <div class="stat-item">
-                <div class="stat-number">15K+</div>
-                <div class="stat-label">Happy Patients</div>
-              </div>
-            </div>
-            <div class="col-lg-3 col-md-6">
-              <div class="stat-item">
-                <div class="stat-number">50+</div>
-                <div class="stat-label">Medical Experts</div>
+                <div class="stat-number">18</div>
+                <div class="stat-label">Specialty Programs</div>
               </div>
             </div>
             <div class="col-lg-3 col-md-6">
               <div class="stat-item">
                 <div class="stat-number">24/7</div>
-                <div class="stat-label">Emergency Care</div>
+                <div class="stat-label">Virtual Support</div>
+              </div>
+            </div>
+            <div class="col-lg-3 col-md-6">
+              <div class="stat-item">
+                <div class="stat-number">1 Portal</div>
+                <div class="stat-label">Unified Health Records</div>
               </div>
             </div>
           </div>
         </div>
 
-        <div class="services-grid" data-aos="fade-up" data-aos-delay="500">
+        <div class="services-grid" data-aos="fade-up" data-aos-delay="300">
           <div class="row">
-
             <div class="col-lg-4 col-md-6">
               <div class="service-card" data-aos="fade-up" data-aos-delay="100">
                 <div class="service-icon">
                   <i class="fas fa-heartbeat"></i>
                 </div>
-                <h4>Cardiology Excellence</h4>
-                <p>Advanced cardiac care with state-of-the-art diagnostic equipment and experienced cardiologists dedicated to heart health.</p>
-                <a href="#" class="service-link">Learn More</a>
+                <h4>Cardiac Navigation</h4>
+                <p>Personalized cardiac rehab and remote rhythm monitoring to keep your heart health on course.</p>
+                <a href="{% url 'service_details' %}" class="service-link">See Details</a>
+              </div>
+            </div>
+
+            <div class="col-lg-4 col-md-6">
+              <div class="service-card" data-aos="fade-up" data-aos-delay="150">
+                <div class="service-icon">
+                  <i class="fas fa-brain"></i>
+                </div>
+                <h4>Neuro Recovery</h4>
+                <p>Specialized neurological care teams coordinate therapies, imaging, and home-based exercises.</p>
+                <a href="{% url 'departments' %}" class="service-link">View Program</a>
               </div>
             </div>
 
             <div class="col-lg-4 col-md-6">
               <div class="service-card" data-aos="fade-up" data-aos-delay="200">
                 <div class="service-icon">
-                  <i class="fas fa-brain"></i>
-                </div>
-                <h4>Neurology Center</h4>
-                <p>Comprehensive neurological services including diagnosis and treatment of brain, spine, and nervous system conditions.</p>
-                <a href="#" class="service-link">Learn More</a>
-              </div>
-            </div>
-
-            <div class="col-lg-4 col-md-6">
-              <div class="service-card" data-aos="fade-up" data-aos-delay="300">
-                <div class="service-icon">
                   <i class="fas fa-shield-alt"></i>
                 </div>
-                <h4>Preventive Care</h4>
-                <p>Proactive health screenings and wellness programs designed to prevent illness and maintain optimal health.</p>
-                <a href="#" class="service-link">Learn More</a>
+                <h4>Preventive Wellness</h4>
+                <p>Annual screenings, lifestyle coaching, and data-informed care plans focused on long-term wellbeing.</p>
+                <a href="{% url 'services' %}" class="service-link">Wellness Plans</a>
               </div>
             </div>
-
           </div>
         </div>
 
-        <div class="contact-banner" data-aos="zoom-in" data-aos-delay="600">
+        <div class="contact-banner" data-aos="zoom-in" data-aos-delay="350">
           <div class="banner-content">
             <div class="contact-info">
               <div class="contact-icon">
@@ -922,24 +593,20 @@
               </div>
               <div class="contact-text">
                 <h5>Need Immediate Assistance?</h5>
-                <p>Our medical team is available around the clock for urgent consultations and emergency support.</p>
+                <p>Call our HealthTech support desk for guidance on urgent symptoms or next steps.</p>
               </div>
             </div>
             <div class="contact-actions">
-              <a href="tel:+15551234567" class="call-btn">
+              <a href="tel:+19516849123" class="call-btn">
                 <i class="fas fa-phone"></i>
-                (555) 123-4567
+                +1 (951) 684-9123
               </a>
-              <a href="contact.html" class="contact-link">Get Directions</a>
+              <a href="{% url 'contact' %}" class="contact-link">Contact Us</a>
             </div>
           </div>
         </div>
-
       </div>
-
-    </section><!-- /Call To Action Section -->
-
+    </section>
   </main>
-{% endblock %}  
+{% endblock %}
 
- 

@@ -2,10 +2,9 @@
 {% extends 'base.html' %}
 {% load static %}
 
-{% block title %}Home - EduCareSpace{% endblock %}
+{% block title %}Gallery - HealthTech{% endblock %}
 
 {% block content %}
-  
 
     <!-- Page Title -->
     <div class="page-title">
@@ -13,12 +12,10 @@
         <div class="container">
           <div class="row d-flex justify-content-center text-center">
             <div class="col-lg-8">
-              <h1 class="heading-title">Gallery</h1>
+              <h1 class="heading-title">Inside HealthTech</h1>
               <p class="mb-0">
-                Odio et unde deleniti. Deserunt numquam exercitationem. Officiis quo
-                odio sint voluptas consequatur ut a odio voluptatem. Sit dolorum
-                debitis veritatis natus dolores. Quasi ratione sint. Sit quaerat
-                ipsum dolorem.
+                Take a closer look at our smart facilities, collaborative care teams, and the technology that powers
+                every patient journey.
               </p>
             </div>
           </div>
@@ -27,7 +24,7 @@
       <nav class="breadcrumbs">
         <div class="container">
           <ol>
-            <li><a href="index.html">Home</a></li>
+            <li><a href="{% url 'home' %}">Home</a></li>
             <li class="current">Gallery</li>
           </ol>
         </div>
@@ -42,136 +39,136 @@
         <div class="isotope-layout" data-default-filter="*" data-layout="masonry" data-sort="original-order">
           <ul class="gallery-filters isotope-filters" data-aos="fade-up" data-aos-delay="200">
             <li data-filter="*" class="filter-active">All</li>
-            <li data-filter=".filter-nature">Nature</li>
-            <li data-filter=".filter-architecture">Architecture</li>
-            <li data-filter=".filter-people">People</li>
+            <li data-filter=".filter-facility">Facilities</li>
+            <li data-filter=".filter-care">Care Teams</li>
+            <li data-filter=".filter-tech">Technology</li>
           </ul>
 
           <div class="row gallery-grid isotope-container" data-aos="fade-up" data-aos-delay="300">
 
-            <div class="col-xl-3 col-md-4 col-sm-6 gallery-item isotope-item filter-nature">
+            <div class="col-xl-3 col-md-4 col-sm-6 gallery-item isotope-item filter-facility">
               <div class="gallery-card">
                 <div class="gallery-image">
-                  <img src="assets/img/gallery/gallery-1.webp" class="img-fluid" alt="">
+                  <img src="{% static 'assets/img/gallery/gallery-1.webp' %}" class="img-fluid" alt="HealthTech atrium lobby">
                 </div>
                 <div class="gallery-overlay">
-                  <h4>Natural Beauty</h4>
-                  <p>Lorem ipsum dolor sit amet consectetur adipisicing elit.</p>
+                  <h4>Welcome Pavilion</h4>
+                  <p>Guests check in with digital hosts while our care navigation team prepares visit details.</p>
                   <div class="gallery-actions">
-                    <a href="assets/img/gallery/gallery-1.webp" title="View Image" class="glightbox"><i class="bi bi-eye"></i></a>
-                    <a href="gallery-details.html"><i class="bi bi-info-circle"></i></a>
+                    <a href="{% static 'assets/img/gallery/gallery-1.webp' %}" title="View Image" class="glightbox"><i class="bi bi-eye"></i></a>
+                    <a href="{% url 'contact' %}"><i class="bi bi-info-circle"></i></a>
                   </div>
                 </div>
               </div>
             </div><!-- End Gallery Item -->
 
-            <div class="col-xl-3 col-md-4 col-sm-6 gallery-item isotope-item filter-architecture">
+            <div class="col-xl-3 col-md-4 col-sm-6 gallery-item isotope-item filter-tech">
               <div class="gallery-card">
                 <div class="gallery-image">
-                  <img src="assets/img/gallery/gallery-2.webp" class="img-fluid" alt="">
+                  <img src="{% static 'assets/img/gallery/gallery-2.webp' %}" class="img-fluid" alt="Advanced imaging suite">
                 </div>
                 <div class="gallery-overlay">
-                  <h4>Urban Landscape</h4>
-                  <p>Lorem ipsum dolor sit amet consectetur adipisicing elit.</p>
+                  <h4>Imaging Suite</h4>
+                  <p>High-definition MRI and CT scanners deliver precise diagnostics with patient-first design.</p>
                   <div class="gallery-actions">
-                    <a href="assets/img/gallery/gallery-2.webp" title="View Image" class="glightbox"><i class="bi bi-eye"></i></a>
-                    <a href="gallery-details.html"><i class="bi bi-info-circle"></i></a>
+                    <a href="{% static 'assets/img/gallery/gallery-2.webp' %}" title="View Image" class="glightbox"><i class="bi bi-eye"></i></a>
+                    <a href="{% url 'service_details' %}"><i class="bi bi-info-circle"></i></a>
                   </div>
                 </div>
               </div>
             </div><!-- End Gallery Item -->
 
-            <div class="col-xl-3 col-md-4 col-sm-6 gallery-item isotope-item filter-people">
+            <div class="col-xl-3 col-md-4 col-sm-6 gallery-item isotope-item filter-care">
               <div class="gallery-card">
                 <div class="gallery-image">
-                  <img src="assets/img/gallery/gallery-3.webp" class="img-fluid" alt="">
+                  <img src="{% static 'assets/img/gallery/gallery-3.webp' %}" class="img-fluid" alt="Collaborative medical team meeting">
                 </div>
                 <div class="gallery-overlay">
-                  <h4>Candid Moments</h4>
-                  <p>Lorem ipsum dolor sit amet consectetur adipisicing elit.</p>
+                  <h4>Care Huddles</h4>
+                  <p>Multidisciplinary teams align on treatment milestones using real-time patient dashboards.</p>
                   <div class="gallery-actions">
-                    <a href="assets/img/gallery/gallery-3.webp" title="View Image" class="glightbox"><i class="bi bi-eye"></i></a>
-                    <a href="gallery-details.html"><i class="bi bi-info-circle"></i></a>
+                    <a href="{% static 'assets/img/gallery/gallery-3.webp' %}" title="View Image" class="glightbox"><i class="bi bi-eye"></i></a>
+                    <a href="{% url 'doctors' %}"><i class="bi bi-info-circle"></i></a>
                   </div>
                 </div>
               </div>
             </div><!-- End Gallery Item -->
 
-            <div class="col-xl-3 col-md-4 col-sm-6 gallery-item isotope-item filter-nature">
+            <div class="col-xl-3 col-md-4 col-sm-6 gallery-item isotope-item filter-facility">
               <div class="gallery-card">
                 <div class="gallery-image">
-                  <img src="assets/img/gallery/gallery-4.webp" class="img-fluid" alt="">
+                  <img src="{% static 'assets/img/gallery/gallery-4.webp' %}" class="img-fluid" alt="Patient suite interior">
                 </div>
                 <div class="gallery-overlay">
-                  <h4>Wilderness</h4>
-                  <p>Lorem ipsum dolor sit amet consectetur adipisicing elit.</p>
+                  <h4>Patient Suites</h4>
+                  <p>Private recovery spaces include in-room telehealth tools and family collaboration zones.</p>
                   <div class="gallery-actions">
-                    <a href="assets/img/gallery/gallery-4.webp" title="View Image" class="glightbox"><i class="bi bi-eye"></i></a>
-                    <a href="gallery-details.html"><i class="bi bi-info-circle"></i></a>
+                    <a href="{% static 'assets/img/gallery/gallery-4.webp' %}" title="View Image" class="glightbox"><i class="bi bi-eye"></i></a>
+                    <a href="{% url 'services' %}"><i class="bi bi-info-circle"></i></a>
                   </div>
                 </div>
               </div>
             </div><!-- End Gallery Item -->
 
-            <div class="col-xl-3 col-md-4 col-sm-6 gallery-item isotope-item filter-architecture">
+            <div class="col-xl-3 col-md-4 col-sm-6 gallery-item isotope-item filter-tech">
               <div class="gallery-card">
                 <div class="gallery-image">
-                  <img src="assets/img/gallery/gallery-5.webp" class="img-fluid" alt="">
+                  <img src="{% static 'assets/img/gallery/gallery-5.webp' %}" class="img-fluid" alt="Surgical robotics setup">
                 </div>
                 <div class="gallery-overlay">
-                  <h4>Modern Design</h4>
-                  <p>Lorem ipsum dolor sit amet consectetur adipisicing elit.</p>
+                  <h4>Robotic Surgery</h4>
+                  <p>Surgical teams utilize robotic assistance for precise, minimally invasive procedures.</p>
                   <div class="gallery-actions">
-                    <a href="assets/img/gallery/gallery-5.webp" title="View Image" class="glightbox"><i class="bi bi-eye"></i></a>
-                    <a href="gallery-details.html"><i class="bi bi-info-circle"></i></a>
+                    <a href="{% static 'assets/img/gallery/gallery-5.webp' %}" title="View Image" class="glightbox"><i class="bi bi-eye"></i></a>
+                    <a href="{% url 'service_details' %}"><i class="bi bi-info-circle"></i></a>
                   </div>
                 </div>
               </div>
             </div><!-- End Gallery Item -->
 
-            <div class="col-xl-3 col-md-4 col-sm-6 gallery-item isotope-item filter-people">
+            <div class="col-xl-3 col-md-4 col-sm-6 gallery-item isotope-item filter-care">
               <div class="gallery-card">
                 <div class="gallery-image">
-                  <img src="assets/img/gallery/gallery-6.webp" class="img-fluid" alt="">
+                  <img src="{% static 'assets/img/gallery/gallery-6.webp' %}" class="img-fluid" alt="Nursing team with patient">
                 </div>
                 <div class="gallery-overlay">
-                  <h4>Portrait Studies</h4>
-                  <p>Lorem ipsum dolor sit amet consectetur adipisicing elit.</p>
+                  <h4>Compassionate Nursing</h4>
+                  <p>Bedside teams deliver evidence-based care and family education around the clock.</p>
                   <div class="gallery-actions">
-                    <a href="assets/img/gallery/gallery-6.webp" title="View Image" class="glightbox"><i class="bi bi-eye"></i></a>
-                    <a href="gallery-details.html"><i class="bi bi-info-circle"></i></a>
+                    <a href="{% static 'assets/img/gallery/gallery-6.webp' %}" title="View Image" class="glightbox"><i class="bi bi-eye"></i></a>
+                    <a href="{% url 'services' %}"><i class="bi bi-info-circle"></i></a>
                   </div>
                 </div>
               </div>
             </div><!-- End Gallery Item -->
 
-            <div class="col-xl-3 col-md-4 col-sm-6 gallery-item isotope-item filter-nature">
+            <div class="col-xl-3 col-md-4 col-sm-6 gallery-item isotope-item filter-facility">
               <div class="gallery-card">
                 <div class="gallery-image">
-                  <img src="assets/img/gallery/gallery-7.webp" class="img-fluid" alt="">
+                  <img src="{% static 'assets/img/gallery/gallery-7.webp' %}" class="img-fluid" alt="Healing outdoor courtyard">
                 </div>
                 <div class="gallery-overlay">
-                  <h4>Serene Waters</h4>
-                  <p>Lorem ipsum dolor sit amet consectetur adipisicing elit.</p>
+                  <h4>Healing Courtyard</h4>
+                  <p>Outdoor respite zones support rehabilitation and family visits in a calming environment.</p>
                   <div class="gallery-actions">
-                    <a href="assets/img/gallery/gallery-7.webp" title="View Image" class="glightbox"><i class="bi bi-eye"></i></a>
-                    <a href="gallery-details.html"><i class="bi bi-info-circle"></i></a>
+                    <a href="{% static 'assets/img/gallery/gallery-7.webp' %}" title="View Image" class="glightbox"><i class="bi bi-eye"></i></a>
+                    <a href="{% url 'about' %}"><i class="bi bi-info-circle"></i></a>
                   </div>
                 </div>
               </div>
             </div><!-- End Gallery Item -->
 
-            <div class="col-xl-3 col-md-4 col-sm-6 gallery-item isotope-item filter-architecture">
+            <div class="col-xl-3 col-md-4 col-sm-6 gallery-item isotope-item filter-tech">
               <div class="gallery-card">
                 <div class="gallery-image">
-                  <img src="assets/img/gallery/gallery-8.webp" class="img-fluid" alt="">
+                  <img src="{% static 'assets/img/gallery/gallery-8.webp' %}" class="img-fluid" alt="Telehealth command center">
                 </div>
                 <div class="gallery-overlay">
-                  <h4>Historical Places</h4>
-                  <p>Lorem ipsum dolor sit amet consectetur adipisicing elit.</p>
+                  <h4>Virtual Care Hub</h4>
+                  <p>Specialists deliver telehealth consults and remote monitoring support throughout the region.</p>
                   <div class="gallery-actions">
-                    <a href="assets/img/gallery/gallery-8.webp" title="View Image" class="glightbox"><i class="bi bi-eye"></i></a>
-                    <a href="gallery-details.html"><i class="bi bi-info-circle"></i></a>
+                    <a href="{% static 'assets/img/gallery/gallery-8.webp' %}" title="View Image" class="glightbox"><i class="bi bi-eye"></i></a>
+                    <a href="{% url 'services' %}"><i class="bi bi-info-circle"></i></a>
                   </div>
                 </div>
               </div>
