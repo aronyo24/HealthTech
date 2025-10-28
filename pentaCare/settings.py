@@ -31,6 +31,7 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
+    'jazzmin',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -131,3 +132,70 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 # This prevents reverse-accessor clashes between the default auth.User
 # and the custom `clinic.User` model (groups / user_permissions).
 AUTH_USER_MODEL = 'clinic.User'
+JAZZMIN_SETTINGS = {
+    "site_title": "HealthTech Admin",
+    "site_header": "HealthTech",
+    "site_brand": "HealthTech",
+    "welcome_sign": "Welcome to the HealthTech admin",
+    "copyright": "HealthTech",
+    "user_avatar": None,
+    "topmenu_links": [
+        {"name": "Home", "url": "home", "permissions": ["auth.view_user"]},
+        {"app": "clinic"},
+        {"model": "auth.User"},
+    ],
+    "show_sidebar": True,
+    "navigation_expanded": True,
+    "icons": {
+        "auth": "fas fa-users-cog",
+        "auth.user": "fas fa-user",
+        "auth.group": "fas fa-users",
+        "clinic.doctor": "fas fa-user-md",
+        "clinic.patient": "fas fa-user-injured",
+        "clinic.appointment": "fas fa-calendar-check",
+        "admin.logentry": "fas fa-file",
+    },
+    "default_icon_parents": "fas fa-chevron-circle-right",
+    "default_icon_children": "fas fa-arrow-circle-right",
+    "related_modal_active": False,
+    "show_ui_builder": False,
+    "changeform_format": "horizontal_tabs",
+    "changeform_format_overrides": {
+        "auth.user": "collapsible",
+        "auth.group": "vertical_tabs",
+        "clinic.doctor": "collapsible",
+    },
+    "custom_css": "css/admin_overrides.css",
+}
+
+JAZZMIN_UI_TWEAKS = {
+    "navbar_small_text": False,
+    "footer_small_text": False,
+    "body_small_text": False,
+    "brand_small_text": False,
+    "brand_colour": "navbar-success",
+    "accent": "accent-teal",
+    "navbar": "navbar-dark",
+    "no_navbar_border": False,
+    "navbar_fixed": False,
+    "layout_boxed": False,
+    "footer_fixed": False,
+    "sidebar_fixed": False,
+    "sidebar": "sidebar-dark-info",
+    "sidebar_nav_small_text": False,
+    "sidebar_disable_expand": False,
+    "sidebar_nav_child_indent": False,
+    "sidebar_nav_compact_style": False,
+    "sidebar_nav_legacy_style": False,
+    "sidebar_nav_flat_style": False,
+    "theme": "cyborg",
+    "dark_mode_theme": None,
+    "button_classes": {
+        "primary": "btn-primary",
+        "secondary": "btn-secondary",
+        "info": "btn-info",
+        "warning": "btn-warning",
+        "danger": "btn-danger",
+        "success": "btn-success",
+    },
+}

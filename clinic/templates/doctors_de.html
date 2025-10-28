@@ -1,0 +1,214 @@
+
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Dr. {{ doctor.name }} - HealthTech{% endblock %}
+
+{% block content %}
+<section class="py-5 bg-light">
+  <div class="container py-4">
+    <a href="{% url 'doctors' %}" class="btn btn-link px-0 mb-4"><i class="bi bi-arrow-left me-1"></i> Back to doctor directory</a>
+
+    <div class="row g-4 align-items-center">
+      <div class="col-lg-4">
+        <div class="card border-0 shadow-sm rounded-4 overflow-hidden">
+          {% if doctor.photo %}
+            <img src="{{ doctor.photo.url }}" class="img-fluid" alt="Dr. {{ doctor.name }}" loading="lazy">
+          {% else %}
+            <img src="{% static 'assets/img/health/staff-4.webp' %}" class="img-fluid" alt="Dr. {{ doctor.name }}" loading="lazy">
+          {% endif %}
+        </div>
+      </div>
+      <div class="col-lg-8">
+        <div class="card border-0 shadow-sm rounded-4 h-100">
+          <div class="card-body p-4 p-md-5">
+            <div class="d-flex flex-wrap align-items-center gap-2 mb-3">
+              <span class="badge bg-primary-subtle text-primary">{{ doctor.primary_department }}</span>
+              {% if doctor.display_title %}<span class="badge bg-info-subtle text-info">{{ doctor.display_title }}</span>{% endif %}
+              {% if doctor.display_credentials %}<span class="badge bg-success-subtle text-success">{{ doctor.display_credentials }}</span>{% endif %}
+              {% if doctor.experience_label %}<span class="badge bg-warning-subtle text-warning">{{ doctor.experience_label }}</span>{% endif %}
+            </div>
+            <h1 class="fw-semibold mb-2">Dr. {{ doctor.name }}</h1>
+            {% if doctor.location %}<p class="text-muted mb-2"><i class="bi bi-geo-alt me-1 text-primary"></i>{{ doctor.location }}</p>{% endif %}
+            {% if doctor.short_bio or doctor.bio %}
+              <p class="text-muted mb-3">{{ doctor.short_bio|default:doctor.bio }}</p>
+            {% endif %}
+
+            {% if doctor.highlight_items %}
+              <ul class="list-unstyled d-flex flex-column gap-2 mb-4">
+                {% for item in doctor.highlight_items %}
+                  <li class="d-flex align-items-start gap-2"><i class="bi bi-check-circle-fill text-success mt-1"></i><span>{{ item }}</span></li>
+                {% endfor %}
+              </ul>
+            {% endif %}
+
+            <div class="d-flex flex-wrap gap-2">
+              <a href="{% url 'clinic:book_appointment' %}" class="btn btn-primary btn-lg"><i class="bi bi-calendar2-check me-1"></i> Book with Dr. {{ doctor.name }}</a>
+              <a href="tel:+1-800-555-0100" class="btn btn-outline-primary btn-lg"><i class="bi bi-telephone me-1"></i> Contact support</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    {% if availability_window %}
+      <div class="card border-0 shadow-sm rounded-4 mt-5">
+        <div class="card-body p-4 p-md-5">
+          <div class="d-flex justify-content-between align-items-center mb-4 flex-wrap gap-2">
+            <div>
+              <h2 class="h4 fw-semibold mb-1">Upcoming availability</h2>
+              <p class="text-muted mb-0">Next seven days of appointments with Dr. {{ doctor.name }}.</p>
+            </div>
+            <a href="{% url 'clinic:book_appointment' %}" class="btn btn-outline-primary">
+              <i class="bi bi-calendar-plus me-1"></i> Request appointment
+            </a>
+          </div>
+          <div class="row g-3">
+            {% for day in availability_window %}
+              <div class="col-md-4">
+                <div class="p-3 border rounded-3 h-100 bg-white">
+                  <div class="d-flex justify-content-between align-items-center mb-2">
+                    <h5 class="fw-semibold mb-0">{{ day.label }}</h5>
+                    {% if day.has_slots %}
+                      <span class="badge bg-success-subtle text-success">Slots available</span>
+                    {% else %}
+                      <span class="badge bg-secondary-subtle text-secondary">Fully booked</span>
+                    {% endif %}
+                  </div>
+                  {% if day.has_slots %}
+                    <div class="d-flex flex-wrap gap-2">
+                      {% for slot in day.slots %}
+                        <span class="badge bg-success-subtle text-success">{{ slot.label }}</span>
+                      {% endfor %}
+                      {% if day.remaining %}
+                        <span class="badge bg-light text-muted border">+{{ day.remaining }} more</span>
+                      {% endif %}
+                    </div>
+                  {% else %}
+                    <p class="text-muted small mb-0">No open times. Please check another day or contact support.</p>
+                  {% endif %}
+                </div>
+              </div>
+            {% endfor %}
+          </div>
+        </div>
+      </div>
+    {% endif %}
+
+    {% if upcoming_appointments %}
+      <div class="card border-0 shadow-sm rounded-4 mt-5">
+        <div class="card-body p-4 p-md-5">
+          <h2 class="h4 fw-semibold mb-4">Upcoming patient visits</h2>
+          <div class="table-responsive">
+            <table class="table align-middle mb-0">
+              <thead class="text-muted small text-uppercase">
+                <tr>
+                  <th scope="col">Patient</th>
+                  <th scope="col">Date</th>
+                  <th scope="col">Time</th>
+                  <th scope="col">Status</th>
+                </tr>
+              </thead>
+              <tbody>
+                {% for appt in upcoming_appointments %}
+                  <tr>
+                    <td>{{ appt.patient.name }}</td>
+                    <td>{{ appt.appointment_date|date:"M j, Y" }}</td>
+                    <td>{{ appt.time_label }}</td>
+                    <td>
+                      <span class="badge
+                        {% if appt.status == 'Confirmed' %}bg-success-subtle text-success
+                        {% elif appt.status == 'Pending' %}bg-warning-subtle text-warning
+                        {% elif appt.status == 'Cancel Requested' %}bg-info-subtle text-info
+                        {% elif appt.status == 'Completed' %}bg-success-subtle text-success
+                        {% else %}bg-secondary-subtle text-secondary{% endif %}">
+                        {{ appt.status }}
+                      </span>
+                    </td>
+                  </tr>
+                {% endfor %}
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    {% endif %}
+
+    <div id="profile-tabs" class="profile-tabs mt-5">
+      <div class="row g-4">
+        <div class="col-lg-4" data-aos="fade-right" data-aos-delay="150">
+          <div class="tab-profile-card">
+            {% if doctor.photo %}
+              <img src="{{ doctor.photo.url }}" class="img-fluid rounded-3" alt="Dr. {{ doctor.name }}" loading="lazy">
+            {% else %}
+              <img src="{% static 'assets/img/health/staff-4.webp' %}" class="img-fluid rounded-3" alt="Dr. {{ doctor.name }}" loading="lazy">
+            {% endif %}
+            <div class="pt-3">
+              <h3 class="mb-1">Dr. {{ doctor.name }}</h3>
+              <p class="mb-2">{{ doctor.primary_department }}{% if doctor.display_title %} • {{ doctor.display_title }}{% endif %}</p>
+              <div class="d-flex gap-2 flex-wrap">
+                {% if doctor.display_credentials %}<span class="badge cert">{{ doctor.display_credentials }}</span>{% endif %}
+                {% if doctor.experience_label %}<span class="badge years">{{ doctor.experience_label }}</span>{% endif %}
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-8" data-aos="fade-left" data-aos-delay="200">
+          <ul class="nav nav-pills mb-3" role="tablist">
+            <li class="nav-item" role="presentation">
+              <button class="nav-link active" data-bs-toggle="pill" data-bs-target="#doctor-tab-bio" type="button" role="tab" aria-controls="doctor-tab-bio" aria-selected="true">Biography</button>
+            </li>
+            <li class="nav-item" role="presentation">
+              <button class="nav-link" data-bs-toggle="pill" data-bs-target="#doctor-tab-schedule" type="button" role="tab" aria-controls="doctor-tab-schedule" aria-selected="false">Clinic schedule</button>
+            </li>
+            <li class="nav-item" role="presentation">
+              <button class="nav-link" data-bs-toggle="pill" data-bs-target="#doctor-tab-reviews" type="button" role="tab" aria-controls="doctor-tab-reviews" aria-selected="false">Notes</button>
+            </li>
+          </ul>
+          <div class="tab-content">
+            <div class="tab-pane fade show active" id="doctor-tab-bio" role="tabpanel">
+              {% if doctor.bio or doctor.short_bio %}
+                <p>{{ doctor.bio|default:doctor.short_bio }}</p>
+              {% else %}
+                <p class="text-muted mb-0">A full biography will appear here once added in the admin panel.</p>
+              {% endif %}
+              {% if doctor.highlight_items %}
+                <ul class="list-unstyled mb-0">
+                  {% for item in doctor.highlight_items %}
+                    <li><i class="bi bi-check2-circle me-1"></i> {{ item }}</li>
+                  {% endfor %}
+                </ul>
+              {% endif %}
+            </div>
+            <div class="tab-pane fade" id="doctor-tab-schedule" role="tabpanel">
+              {% if doctor.schedule_items %}
+                <div class="schedule-grid">
+                  <div class="row g-2">
+                    {% for slot in doctor.schedule_items %}
+                      <div class="col-6">
+                        <div class="slot">{{ slot }}</div>
+                      </div>
+                    {% endfor %}
+                  </div>
+                </div>
+              {% else %}
+                <p class="text-muted mb-0">Scheduling details have not been published yet. Contact our care team for specific availability.</p>
+              {% endif %}
+              <div class="mt-3">
+                <a href="{% url 'clinic:book_appointment' %}" class="btn btn-appointment"><i class="bi bi-calendar-event me-1"></i> Reserve a slot</a>
+              </div>
+            </div>
+            <div class="tab-pane fade" id="doctor-tab-reviews" role="tabpanel">
+              {% if doctor.review_summary %}
+                <p class="mb-0">{{ doctor.review_summary }}</p>
+              {% else %}
+                <p class="text-muted mb-0">Shareable notes, awards, or testimonials can be stored here from the admin interface.</p>
+              {% endif %}
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+{% endblock %}

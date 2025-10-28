@@ -1,0 +1,268 @@
+
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Doctors - MediNest{% endblock %}
+
+{% block content %}
+
+    <!-- Page Title -->
+    <div class="page-title">
+      <div class="heading">
+        <div class="container">
+          <div class="row d-flex justify-content-center text-center">
+            <div class="col-lg-8">
+              <h1 class="heading-title">Our Specialists</h1>
+              <p class="mb-0">
+                Meet the clinicians trusted by MediNest. Browse by department, explore detailed profiles, and reserve the next available visit.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+      <nav class="breadcrumbs">
+        <div class="container">
+          <ol>
+            <li><a href="{% url 'home' %}">Home</a></li>
+            <li class="current">Doctors</li>
+          </ol>
+        </div>
+      </nav>
+    </div><!-- End Page Title -->
+
+    <!-- Doctors Section -->
+    <section id="doctors" class="doctors section">
+
+      <div class="container" data-aos="fade-up" data-aos-delay="100">
+
+        <!-- Filterable Doctor Directory -->
+        <div class="doctor-directory mb-5">
+          <div class="directory-bar p-3 p-md-4 rounded-3">
+            <div class="row g-3 align-items-center">
+              <div class="col-lg-4">
+                <label for="doctor-search" class="form-label mb-1">Search Doctors</label>
+                <div class="position-relative">
+                  <i class="bi bi-search search-icon"></i>
+                  <input id="doctor-search" type="text" class="form-control search-input" placeholder="Type a name or keyword">
+                </div>
+              </div>
+              <div class="col-lg-3">
+                <label class="form-label mb-1">Department</label>
+                <select class="form-select" id="doctor-department-filter">
+                  <option value="*">All Departments</option>
+                  {% for dept in departments %}
+                    <option value=".filter-{{ dept.slug }}">{{ dept.name }}</option>
+                  {% endfor %}
+                </select>
+              </div>
+              <div class="col-lg-3">
+                <label class="form-label mb-1">Location</label>
+                <select class="form-select">
+                  <option>All Locations</option>
+                  {% for location in locations %}
+                    <option>{{ location }}</option>
+                  {% endfor %}
+                </select>
+              </div>
+              <div class="col-lg-2 d-grid">
+                <a href="#doctor-directory" class="btn btn-appointment">Apply Filters</a>
+              </div>
+            </div>
+          </div>
+
+          <div class="isotope-layout" data-default-filter="*" data-layout="masonry" data-sort="original-order">
+            <ul class="directory-filters isotope-filters" data-aos="fade-up" data-aos-delay="200">
+              <li data-filter="*" class="filter-active">All</li>
+              {% for dept in departments %}
+                <li data-filter=".filter-{{ dept.slug }}">{{ dept.name }}</li>
+              {% empty %}
+                <li data-filter="*" class="disabled">No departments defined</li>
+              {% endfor %}
+            </ul><!-- End Directory Filters -->
+
+            <div id="doctor-directory" class="row gy-4 isotope-container" data-aos="fade-up" data-aos-delay="300">
+
+              {% for doctor in doctors %}
+                <div class="col-lg-3 col-md-6 doctor-item isotope-item filter-{{ doctor.department_slug }}">
+                  <article class="doctor-card h-100" data-doctor-name="{{ doctor.name }}" data-department="{{ doctor.department_label }}">
+                    <figure class="doctor-media">
+                      {% if doctor.photo %}
+                        <img src="{{ doctor.photo.url }}" class="img-fluid" alt="Dr. {{ doctor.name }}" loading="lazy">
+                      {% else %}
+                        <img src="{% static 'assets/img/health/staff-3.webp' %}" class="img-fluid" alt="Dr. {{ doctor.name }}" loading="lazy">
+                      {% endif %}
+                      {% if doctor.highlight %}
+                        <span class="tag">{{ doctor.highlight }}</span>
+                      {% endif %}
+                    </figure>
+                    <div class="doctor-content">
+                      <h3 class="doctor-name">Dr. {{ doctor.name }}</h3>
+                      {% if doctor.display_title or doctor.display_credentials %}
+                        <p class="doctor-title color-success">
+                          {{ doctor.display_title }}
+                          {% if doctor.display_title and doctor.display_credentials %} • {% endif %}
+                          {{ doctor.display_credentials }}
+                        </p>
+                      {% endif %}
+                      {% if doctor.card_description %}
+                        <p class="doctor-desc">{{ doctor.card_description }}</p>
+                      {% endif %}
+                      <div class="doctor-meta">
+                        <span class="badge dept">{{ doctor.department_label }}</span>
+                        {% if doctor.location %}<span class="badge location">{{ doctor.location }}</span>{% endif %}
+                        {% if doctor.experience_label %}<span class="badge years">{{ doctor.experience_label }}</span>{% endif %}
+                      </div>
+                      <div class="doctor-actions">
+                        <a href="{% url 'clinic:book_appointment' %}" class="btn btn-sm btn-appointment">Book Appointment</a>
+                        <a href="{% url 'doctor_detail' doctor.slug %}" class="btn btn-sm btn-soft">View Profile</a>
+                      </div>
+                    </div>
+                  </article>
+                </div><!-- End Directory Item -->
+              {% empty %}
+                <div class="col-12">
+                  <div class="alert alert-info mb-0">No doctors have been added yet. Please create doctor profiles from the admin dashboard.</div>
+                </div>
+              {% endfor %}
+
+            </div><!-- End Directory Items Container -->
+          </div>
+        </div><!-- End Filterable Doctor Directory -->
+
+        {% if featured_doctor %}
+          <!-- Single Doctor Profile -->
+          <div class="single-profile mt-5">
+            <div class="row align-items-center g-4">
+              <div class="col-lg-5" data-aos="fade-right" data-aos-delay="150">
+                <div class="profile-media">
+                  {% if featured_doctor.photo %}
+                    <img src="{{ featured_doctor.photo.url }}" class="img-fluid" alt="Dr. {{ featured_doctor.name }}">
+                  {% else %}
+                    <img src="{% static 'assets/img/health/staff-12.webp' %}" class="img-fluid" alt="Dr. {{ featured_doctor.name }}">
+                  {% endif %}
+                  <div class="availability">
+                    <i class="bi bi-circle-fill me-1"></i>
+                    {{ featured_doctor.availability|default:"Available this week" }}
+                  </div>
+                </div>
+              </div>
+              <div class="col-lg-7" data-aos="fade-left" data-aos-delay="200">
+                <div class="profile-content">
+                  <div class="d-flex flex-wrap align-items-center gap-2 mb-2">
+                    {% if featured_doctor.highlight %}<span class="badge role">{{ featured_doctor.highlight }}</span>{% endif %}
+                    {% if featured_doctor.experience_label %}<span class="badge years">{{ featured_doctor.experience_label }}</span>{% endif %}
+                    {% if featured_doctor.qualifications %}<span class="badge cert">{{ featured_doctor.qualifications }}</span>{% endif %}
+                  </div>
+                  <h3 class="name mb-1">Dr. {{ featured_doctor.name }}</h3>
+                  <p class="title mb-3">{{ featured_doctor.primary_department }}{% if featured_doctor.display_title %} • {{ featured_doctor.display_title }}{% endif %}</p>
+                  {% if featured_doctor.bio or featured_doctor.short_bio %}
+                    <p class="bio mb-3">{{ featured_doctor.bio|default:featured_doctor.short_bio }}</p>
+                  {% endif %}
+                  {% if featured_doctor.highlight_items %}
+                    <ul class="list-unstyled highlights mb-4">
+                      {% for item in featured_doctor.highlight_items %}
+                        <li><i class="bi bi-check2-circle"></i> {{ item }}</li>
+                      {% endfor %}
+                    </ul>
+                  {% endif %}
+                  <div class="d-flex flex-wrap gap-2">
+                    <a href="{% url 'clinic:book_appointment' %}" class="btn btn-appointment"><i class="bi bi-calendar2-check me-1"></i> Book Appointment</a>
+                    <a href="{% url 'doctor_detail' featured_doctor.slug %}" class="btn btn-soft"><i class="bi bi-person-lines-fill me-1"></i> View Full Profile</a>
+                    {% if request.user.is_superuser %}
+                      <a href="{% url 'admin:clinic_doctor_change' featured_doctor.pk %}" class="btn btn-outline-secondary"><i class="bi bi-pencil-square me-1"></i> Edit in Admin</a>
+                    {% endif %}
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div><!-- End Single Doctor Profile -->
+        {% endif %}
+
+        
+
+        {% if tab_doctor %}
+          <!-- Doctor Profile with Tabs -->
+          <div id="profile-tabs" class="profile-tabs mt-5">
+            <div class="row g-4">
+              <div class="col-lg-4" data-aos="fade-right" data-aos-delay="150">
+                <div class="tab-profile-card">
+                  {% if tab_doctor.photo %}
+                    <img src="{{ tab_doctor.photo.url }}" class="img-fluid rounded-3" alt="Dr. {{ tab_doctor.name }}" loading="lazy">
+                  {% else %}
+                    <img src="{% static 'assets/img/health/staff-4.webp' %}" class="img-fluid rounded-3" alt="Dr. {{ tab_doctor.name }}" loading="lazy">
+                  {% endif %}
+                  <div class="pt-3">
+                    <h3 class="mb-1">Dr. {{ tab_doctor.name }}</h3>
+                    <p class="mb-2">{{ tab_doctor.primary_department }}{% if tab_doctor.display_title %} • {{ tab_doctor.display_title }}{% endif %}</p>
+                    <div class="d-flex gap-2 flex-wrap">
+                      {% if tab_doctor.qualifications %}<span class="badge cert">{{ tab_doctor.qualifications }}</span>{% endif %}
+                      {% if tab_doctor.experience_label %}<span class="badge years">{{ tab_doctor.experience_label }}</span>{% endif %}
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="col-lg-8" data-aos="fade-left" data-aos-delay="200">
+                <ul class="nav nav-pills mb-3" role="tablist">
+                  <li class="nav-item" role="presentation">
+                    <button class="nav-link active" data-bs-toggle="pill" data-bs-target="#doctor-tab-bio" type="button" role="tab" aria-controls="doctor-tab-bio" aria-selected="true">Bio</button>
+                  </li>
+                  <li class="nav-item" role="presentation">
+                    <button class="nav-link" data-bs-toggle="pill" data-bs-target="#doctor-tab-schedule" type="button" role="tab" aria-controls="doctor-tab-schedule" aria-selected="false">Schedule</button>
+                  </li>
+                  <li class="nav-item" role="presentation">
+                    <button class="nav-link" data-bs-toggle="pill" data-bs-target="#doctor-tab-reviews" type="button" role="tab" aria-controls="doctor-tab-reviews" aria-selected="false">Notes</button>
+                  </li>
+                </ul>
+                <div class="tab-content">
+                  <div class="tab-pane fade show active" id="doctor-tab-bio" role="tabpanel">
+                    {% if tab_doctor.bio or tab_doctor.short_bio %}
+                      <p>{{ tab_doctor.bio|default:tab_doctor.short_bio }}</p>
+                    {% else %}
+                      <p class="text-muted mb-0">A full biography will appear here once added in the admin panel.</p>
+                    {% endif %}
+                    {% if tab_doctor.highlight_items %}
+                      <ul class="list-unstyled mb-0">
+                        {% for item in tab_doctor.highlight_items %}
+                          <li><i class="bi bi-check2-circle me-1"></i> {{ item }}</li>
+                        {% endfor %}
+                      </ul>
+                    {% endif %}
+                  </div>
+                  <div class="tab-pane fade" id="doctor-tab-schedule" role="tabpanel">
+                    {% if tab_doctor.schedule_items %}
+                      <div class="schedule-grid">
+                        <div class="row g-2">
+                          {% for slot in tab_doctor.schedule_items %}
+                            <div class="col-6">
+                              <div class="slot">
+                                {{ slot }}
+                              </div>
+                            </div>
+                          {% endfor %}
+                        </div>
+                      </div>
+                    {% else %}
+                      <p class="text-muted mb-0">Scheduling details have not been published yet. Contact our care team for specific availability.</p>
+                    {% endif %}
+                    <div class="mt-3">
+                      <a href="{% url 'clinic:book_appointment' %}" class="btn btn-appointment"><i class="bi bi-calendar-event me-1"></i> Reserve a Slot</a>
+                    </div>
+                  </div>
+                  <div class="tab-pane fade" id="doctor-tab-reviews" role="tabpanel">
+                    {% if tab_doctor.review_summary %}
+                      <p class="mb-0">{{ tab_doctor.review_summary }}</p>
+                    {% else %}
+                      <p class="text-muted mb-0">Shareable notes, awards, or testimonials can be stored here from the admin interface.</p>
+                    {% endif %}
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div><!-- End Doctor Profile with Tabs -->
+        {% endif %}
+
+      </div>
+
+    </section><!-- /Doctors Section -->
+
+{% endblock %}

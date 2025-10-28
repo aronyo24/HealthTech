@@ -1,0 +1,35 @@
+# Ignore the local virtual environment
+
+# Django-specific files
+*.log
+*.pot
+*.pyc
+__pycache__/
+local_settings.py
+
+
+# Virtual Environment
+.env
+venv/
+env/
+mvpc/
+
+# IDE and Editor settings
+.vscode/
+.idea/
+*.sublime-project
+*.sublime-workspace
+
+# Testing and coverage reports
+.tox/
+.coverage
+htmlcov/
+.pytest_cache/
+
+# Operating System files
+.DS_Store
+Thumbs.db
+
+# Deployment files
+*.tar.gz
+*.zip

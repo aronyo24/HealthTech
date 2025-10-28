@@ -30,6 +30,7 @@
               .calendar-day.empty{background:linear-gradient(90deg,#f8f9fa 0%,#ffffff 100%)}
               .calendar-day.pending{background:linear-gradient(90deg,#fff7e6 0%,#fffaf0 100%);border-color:rgba(255,193,7,0.35)}
               .calendar-day.confirmed{background:linear-gradient(90deg,#e9f9ee 0%,#f6fff7 100%);border-color:rgba(25,135,84,0.35)}
+              .calendar-day.cancel-requested{background:linear-gradient(90deg,#e7f1ff 0%,#f5f9ff 100%);border-color:rgba(13,110,253,0.35)}
               .calendar-legend{display:flex;flex-wrap:wrap;gap:1rem;align-items:center;margin-top:0.75rem}
               .legend-pill{width:12px;height:12px;border-radius:3px;display:inline-block}
               .calendar-legend .legend-label{font-size:0.85rem;color:#495057}
@@ -55,6 +56,9 @@
               .calendar-slot.confirmed .status-indicator,.calendar-slot.completed .status-indicator{background:#3cb371}
               .calendar-slot.cancelled{background:linear-gradient(135deg,#fdecec 0%,#fff5f5 100%);border-color:rgba(220,53,69,0.35)}
               .calendar-slot.cancelled .status-indicator{background:#dc3545}
+              .calendar-slot.cancel-requested{background:linear-gradient(135deg,#e7f1ff 0%,#f5f9ff 100%);border-color:rgba(13,110,253,0.4)}
+              .calendar-slot.cancel-requested .status-indicator{background:#0d6efd}
+              .calendar-slot.cancel-requested .slot-status{color:#0d6efd}
               .calendar-slot .empty-label{color:#6c757d;font-style:italic}
             </style>
 
@@ -69,6 +73,8 @@
                   <div class="mt-2">
                     {% if day.status == 'confirmed' %}
                       <span class="badge bg-success-subtle text-success">{{ day.count }} confirmed</span>
+                    {% elif day.status == 'cancel-requested' %}
+                      <span class="badge bg-info-subtle text-info">{{ day.count }} cancellation{% if day.count != 1 %}s{% endif %}</span>
                     {% elif day.status == 'pending' %}
                       <span class="badge bg-warning-subtle text-warning">{{ day.count }} pending</span>
                     {% else %}
@@ -81,6 +87,7 @@
 
             <div class="calendar-legend">
               <div class="legend-label"><span class="legend-pill" style="background:#f6b400;border:1px solid rgba(255,193,7,0.45)"></span> Pending decision</div>
+              <div class="legend-label"><span class="legend-pill" style="background:#0d6efd;border:1px solid rgba(13,110,253,0.4)"></span> Cancellation requested</div>
               <div class="legend-label"><span class="legend-pill" style="background:#3cb371;border:1px solid rgba(25,135,84,0.35)"></span> Confirmed / completed</div>
               <div class="legend-label"><span class="legend-pill" style="background:#dc3545;border:1px solid rgba(220,53,69,0.35)"></span> Cancelled</div>
               <div class="text-muted small">Tip: click a day to preview bookings and review time slots instantly.</div>
@@ -171,6 +178,7 @@
                           {% elif appt.status == 'Completed' %}bg-success-subtle text-success
                           {% elif appt.status == 'Pending' %}bg-warning-subtle text-warning
                           {% elif appt.status == 'Cancelled' %}bg-danger-subtle text-danger
+                          {% elif appt.status == 'Cancel Requested' %}bg-info-subtle text-info
                           {% else %}bg-secondary-subtle text-secondary{% endif %}">
                           {{ appt.status }}
                         </span>
@@ -185,6 +193,19 @@
                               {% csrf_token %}
                               <input type="hidden" name="decision" value="cancel">
                               <button class="btn btn-outline-danger btn-sm" type="submit">Decline</button>
+                            </form>
+                          </div>
+                        {% elif appt.status == 'Cancel Requested' %}
+                          <div class="d-flex gap-2 justify-content-end mt-2">
+                            <form method="post" action="{% url 'clinic:update_appointment_status' appt.pk %}">
+                              {% csrf_token %}
+                              <input type="hidden" name="decision" value="approve_cancel">
+                              <button class="btn btn-outline-danger btn-sm" type="submit">Approve cancellation</button>
+                            </form>
+                            <form method="post" action="{% url 'clinic:update_appointment_status' appt.pk %}">
+                              {% csrf_token %}
+                              <input type="hidden" name="decision" value="keep">
+                              <button class="btn btn-success btn-sm" type="submit">Keep appointment</button>
                             </form>
                           </div>
                         {% endif %}
@@ -243,6 +264,7 @@
                             {% elif appt.status == 'Completed' %}bg-success-subtle text-success
                             {% elif appt.status == 'Pending' %}bg-warning-subtle text-warning
                             {% elif appt.status == 'Cancelled' %}bg-danger-subtle text-danger
+                            {% elif appt.status == 'Cancel Requested' %}bg-info-subtle text-info
                             {% else %}bg-secondary-subtle text-secondary{% endif %}">
                             {{ appt.status }}
                           </span>
@@ -259,6 +281,19 @@
                                 {% csrf_token %}
                                 <input type="hidden" name="decision" value="cancel">
                                 <button class="btn btn-outline-danger btn-sm" type="submit">Decline</button>
+                              </form>
+                            </div>
+                          {% elif appt.status == 'Cancel Requested' %}
+                            <div class="d-inline-flex gap-2">
+                              <form method="post" action="{% url 'clinic:update_appointment_status' appt.pk %}">
+                                {% csrf_token %}
+                                <input type="hidden" name="decision" value="approve_cancel">
+                                <button class="btn btn-outline-danger btn-sm" type="submit">Approve cancellation</button>
+                              </form>
+                              <form method="post" action="{% url 'clinic:update_appointment_status' appt.pk %}">
+                                {% csrf_token %}
+                                <input type="hidden" name="decision" value="keep">
+                                <button class="btn btn-success btn-sm" type="submit">Keep appointment</button>
                               </form>
                             </div>
                           {% else %}
@@ -313,6 +348,8 @@
           return 'badge bg-success-subtle text-success';
         case 'Pending':
           return 'badge bg-warning-subtle text-warning';
+        case 'Cancel Requested':
+          return 'badge bg-info-subtle text-info';
         case 'Cancelled':
           return 'badge bg-danger-subtle text-danger';
         default:
@@ -324,6 +361,8 @@
       switch (status) {
         case 'pending':
           return 'badge bg-warning-subtle text-warning';
+        case 'cancel-requested':
+          return 'badge bg-info-subtle text-info';
         case 'confirmed':
           return 'badge bg-success-subtle text-success';
         default:
@@ -368,7 +407,9 @@
         let statusKey = 'available';
         if (appt) {
           const state = (appt.status || '').toLowerCase();
-          if (['pending', 'confirmed', 'completed', 'cancelled'].includes(state)) {
+          if (state === 'cancel requested') {
+            statusKey = 'cancel-requested';
+          } else if (['pending', 'confirmed', 'completed', 'cancelled'].includes(state)) {
             statusKey = state;
           }
         }

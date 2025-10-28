@@ -1,0 +1,22 @@
+/* Admin UI overrides to improve dropdown legibility */
+.dropdown-menu,
+.select2-dropdown,
+.select2-results__options,
+.select2-selection__rendered,
+select option {
+  background-color: #ffffff !important;
+  color: #101828 !important;
+}
+
+.dropdown-menu a,
+.dropdown-item,
+.select2-results__option {
+  color: #101828 !important;
+}
+
+.dropdown-menu a:hover,
+.dropdown-item:hover,
+.select2-results__option--highlighted {
+  background-color: rgba(13, 110, 253, 0.12) !important;
+  color: #0d6efd !important;
+}
