@@ -51,25 +51,35 @@
       </a>
 
       <nav id="navmenu" class="navmenu">
+        {% with match=request.resolver_match %}
+        {% with url_name=match.url_name namespace=match.namespace %}
         <ul>
-          <li><a href="{% url 'home' %}" class="active">Home</a></li>
-          <li><a href="{% url 'about' %}">About</a></li>
+          <li>
+            <a href="{% url 'home' %}" class="{% if url_name == 'home' %}active{% endif %}">Home</a>
+          </li>
+          <li>
+            <a href="{% url 'about' %}" class="{% if url_name == 'about' %}active{% endif %}">About</a>
+          </li>
           <!-- <li><a href="{% url 'departments' %}">Departments</a></li> -->
-          <li><a href="{% url 'services' %}">Services</a></li>
-          <li><a href="{% url 'doctors' %}">Doctors</a></li>
-          <li class="dropdown"><a href="#"><span>More Pages</span> <i class="bi bi-chevron-down toggle-dropdown"></i></a>
+          <li>
+            <a href="{% url 'services' %}" class="{% if url_name == 'services' or url_name == 'service_details' %}active{% endif %}">Services</a>
+          </li>
+          <li>
+            <a href="{% url 'doctors' %}" class="{% if url_name == 'doctors' or url_name == 'doctor_detail' %}active{% endif %}">Doctors</a>
+          </li>
+          <li class="dropdown{% if url_name == 'department_details' or url_name == 'service_details' or url_name == 'faq' or namespace == 'clinic' and url_name == 'book_appointment' %} active{% endif %}">
+            <a href="#" class="{% if url_name == 'department_details' or url_name == 'service_details' or url_name == 'faq' or namespace == 'clinic' and url_name == 'book_appointment' %}active{% endif %}"><span>More Pages</span> <i class="bi bi-chevron-down toggle-dropdown"></i></a>
             <ul>
-              <li><a href="{% url 'department_details' %}">Department Details</a></li>
-              <li><a href="{% url 'service_details' %}">Service Details</a></li>
-              <li><a href="{% url 'clinic:book_appointment' %}">Appointment</a></li>
-             
-              <li><a href="{% url 'faq' %}">Frequently Asked Questions</a></li>
-
-              
+              <li><a href="{% url 'department_details' %}" class="{% if url_name == 'department_details' %}active{% endif %}">Department Details</a></li>
+              <li><a href="{% url 'service_details' %}" class="{% if url_name == 'service_details' %}active{% endif %}">Service Details</a></li>
+              <li><a href="{% url 'clinic:book_appointment' %}" class="{% if namespace == 'clinic' and url_name == 'book_appointment' %}active{% endif %}">Appointment</a></li>
+              <li><a href="{% url 'faq' %}" class="{% if url_name == 'faq' %}active{% endif %}">Frequently Asked Questions</a></li>
             </ul>
           </li>
-         
-          <li><a href="{% url 'contact' %}">Contact</a></li>
+          
+          <li>
+            <a href="{% url 'contact' %}" class="{% if url_name == 'contact' %}active{% endif %}">Contact</a>
+          </li>
           {% if user.is_authenticated %}
             <li class="dropdown profile-menu">
               <a href="#">
@@ -93,10 +103,12 @@
               </ul>
             </li>
           {% else %}
-            <li><a href="{% url 'clinic:login' %}">Login</a></li>
-            <li><a href="{% url 'clinic:register' %}">Register</a></li>
+            <li><a href="{% url 'clinic:login' %}" class="{% if namespace == 'clinic' and url_name == 'login' %}active{% endif %}">Login</a></li>
+            <li><a href="{% url 'clinic:register' %}" class="{% if namespace == 'clinic' and url_name == 'register' %}active{% endif %}">Register</a></li>
           {% endif %}
         </ul>
+        {% endwith %}
+  {% endwith %}
         <i class="mobile-nav-toggle d-xl-none bi bi-list"></i>
       </nav>
 
