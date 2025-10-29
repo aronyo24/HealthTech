@@ -33,6 +33,8 @@ def register(request):
 
     form_data = {}
 
+    selected_doctor = None
+
     if request.method == "POST":
         name = request.POST.get("name", "").strip()
         username = request.POST.get("username", "").strip()
@@ -383,6 +385,12 @@ def book_appointment(request):
 
     if request.method == "POST":
         form = AppointmentForm(request.POST, patient=patient)
+        doctor_value = request.POST.get("doctor")
+        if doctor_value:
+            try:
+                selected_doctor = Doctor.objects.get(pk=doctor_value)
+            except (Doctor.DoesNotExist, ValueError):
+                selected_doctor = None
         if form.is_valid():
             appointment = form.save(commit=False)
             appointment.patient = patient
@@ -398,13 +406,25 @@ def book_appointment(request):
             )
             return redirect("clinic:patient_dashboard")
     else:
-        form = AppointmentForm(patient=patient)
+        selected_doctor = None
+        doctor_param = request.GET.get("doctor")
+        if doctor_param:
+            try:
+                selected_doctor = Doctor.objects.get(pk=doctor_param)
+            except (Doctor.DoesNotExist, ValueError):
+                selected_doctor = None
+                messages.warning(request, "We could not find that doctor. Please choose from the list below.")
+        initial = {}
+        if selected_doctor is not None:
+            initial["doctor"] = selected_doctor.pk
+        form = AppointmentForm(patient=patient, initial=initial)
 
     context = {
         "form": form,
         "patient": patient,
         "upcoming": upcoming,
         "has_doctors": Doctor.objects.exists(),
+        "selected_doctor": selected_doctor,
     }
 
     return render(request, "appointment_form.html", context)

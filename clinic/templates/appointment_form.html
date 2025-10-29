@@ -55,11 +55,18 @@
                 We are setting up our specialists roster. Please check back soon or contact support for immediate assistance.
               </div>
             {% else %}
-              <form method="post" class="needs-validation">
+              <form method="post" class="needs-validation" action="{% if selected_doctor %}{% url 'clinic:book_appointment' %}?doctor={{ selected_doctor.pk }}{% else %}{% url 'clinic:book_appointment' %}{% endif %}">
                 {% csrf_token %}
                 {% if form.non_field_errors %}
                   <div class="alert alert-danger" role="alert">
                     {% for error in form.non_field_errors %}{{ error }}{% if not forloop.last %}<br>{% endif %}{% endfor %}
+                  </div>
+                {% endif %}
+
+                {% if selected_doctor %}
+                  <div class="alert alert-info d-flex align-items-center gap-2" role="alert">
+                    <i class="bi bi-person-check fs-5"></i>
+                    <span>Booking request will be sent to <strong>Dr. {{ selected_doctor.name }}</strong>.</span>
                   </div>
                 {% endif %}
 

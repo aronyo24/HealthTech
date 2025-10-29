@@ -43,7 +43,7 @@
             {% endif %}
 
             <div class="d-flex flex-wrap gap-2">
-              <a href="{% url 'clinic:book_appointment' %}" class="btn btn-primary btn-lg"><i class="bi bi-calendar2-check me-1"></i> Book with Dr. {{ doctor.name }}</a>
+              <a href="{% url 'clinic:book_appointment' %}?doctor={{ doctor.pk }}" class="btn btn-primary btn-lg"><i class="bi bi-calendar2-check me-1"></i> Book with Dr. {{ doctor.name }}</a>
               <a href="tel:+1-800-555-0100" class="btn btn-outline-primary btn-lg"><i class="bi bi-telephone me-1"></i> Contact support</a>
             </div>
           </div>
@@ -59,7 +59,7 @@
               <h2 class="h4 fw-semibold mb-1">Upcoming availability</h2>
               <p class="text-muted mb-0">Next seven days of appointments with Dr. {{ doctor.name }}.</p>
             </div>
-            <a href="{% url 'clinic:book_appointment' %}" class="btn btn-outline-primary">
+            <a href="{% url 'clinic:book_appointment' %}?doctor={{ doctor.pk }}" class="btn btn-outline-primary">
               <i class="bi bi-calendar-plus me-1"></i> Request appointment
             </a>
           </div>
@@ -195,7 +195,7 @@
                 <p class="text-muted mb-0">Scheduling details have not been published yet. Contact our care team for specific availability.</p>
               {% endif %}
               <div class="mt-3">
-                <a href="{% url 'clinic:book_appointment' %}" class="btn btn-appointment"><i class="bi bi-calendar-event me-1"></i> Reserve a slot</a>
+                <a href="{% url 'clinic:book_appointment' %}?doctor={{ doctor.pk }}" class="btn btn-appointment"><i class="bi bi-calendar-event me-1"></i> Reserve a slot</a>
               </div>
             </div>
             <div class="tab-pane fade" id="doctor-tab-reviews" role="tabpanel">

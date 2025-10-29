@@ -5,13 +5,27 @@
 {% block content %}
 <section class="py-5 bg-light">
   <div class="container py-4">
-    <div class="row align-items-center mb-4">
-      <div class="col-lg-8">
+    <div class="row align-items-center mb-4 g-4">
+      <div class="col-lg-8 col-xl-9">
         <h1 class="fw-semibold mb-2">Good day, Dr. {{ doctor.name }}</h1>
         <p class="text-muted mb-0">Here's an overview of your patient schedule and today's visits.</p>
+        <div class="d-flex flex-wrap gap-2 mt-3">
+          {% if doctor.specialization %}
+            <span class="badge bg-primary-subtle text-primary px-3 py-2 rounded-pill">{{ doctor.specialization }}</span>
+          {% endif %}
+          {% if doctor.qualifications %}
+            <span class="badge bg-info-subtle text-info px-3 py-2 rounded-pill">{{ doctor.qualifications }}</span>
+          {% endif %}
+        </div>
       </div>
-      <div class="col-lg-4 text-lg-end mt-3 mt-lg-0">
-        <span class="badge bg-primary-subtle text-primary px-3 py-2 rounded-pill">{{ doctor.specialization }}</span>
+      <div class="col-lg-4 col-xl-3">
+        <div class="doctor-avatar-card shadow-sm">
+          {% if doctor.photo %}
+            <img src="{{ doctor.photo.url }}" alt="Dr. {{ doctor.name }} profile photo">
+          {% else %}
+            <img src="{% static 'assets/img/health/staff-4.webp' %}" alt="Dr. {{ doctor.name }} placeholder photo">
+          {% endif %}
+        </div>
       </div>
     </div>
 
@@ -22,6 +36,9 @@
           <div class="card-body">
             <h5 class="fw-semibold mb-3">Recent 7-day booking snapshot</h5>
             <style>
+              .doctor-avatar-card{border-radius:1.25rem;overflow:hidden;position:relative;background:linear-gradient(135deg,#f1f6ff 0%,#ffffff 100%);display:flex;align-items:center;justify-content:center;padding:0.5rem;height:100%;min-height:220px}
+              .doctor-avatar-card::after{content:"";position:absolute;inset:0;border-radius:inherit;box-shadow:inset 0 0 0 1px rgba(13,110,253,0.08)}
+              .doctor-avatar-card img{border-radius:1rem;width:100%;height:100%;object-fit:cover}
               .calendar-grid{display:grid;grid-template-columns:repeat(7,1fr);gap:0.6rem}
               .calendar-day{padding:0.75rem;border-radius:0.8rem;border:1px dashed rgba(0,0,0,0.06);text-align:center;cursor:pointer;transition:transform .2s,box-shadow .2s,border-color .2s}
               .calendar-day:hover{transform:translateY(-3px);box-shadow:0 0.75rem 1.5rem rgba(15,76,129,0.08)}

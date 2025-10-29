@@ -113,7 +113,7 @@
                         {% if doctor.experience_label %}<span class="badge years">{{ doctor.experience_label }}</span>{% endif %}
                       </div>
                       <div class="doctor-actions">
-                        <a href="{% url 'clinic:book_appointment' %}" class="btn btn-sm btn-appointment">Book Appointment</a>
+                        <a href="{% url 'clinic:book_appointment' %}?doctor={{ doctor.pk }}" class="btn btn-sm btn-appointment">Book Appointment</a>
                         <a href="{% url 'doctor_detail' doctor.slug %}" class="btn btn-sm btn-soft">View Profile</a>
                       </div>
                     </div>
@@ -166,7 +166,7 @@
                     </ul>
                   {% endif %}
                   <div class="d-flex flex-wrap gap-2">
-                    <a href="{% url 'clinic:book_appointment' %}" class="btn btn-appointment"><i class="bi bi-calendar2-check me-1"></i> Book Appointment</a>
+                    <a href="{% url 'clinic:book_appointment' %}?doctor={{ featured_doctor.pk }}" class="btn btn-appointment"><i class="bi bi-calendar2-check me-1"></i> Book Appointment</a>
                     <a href="{% url 'doctor_detail' featured_doctor.slug %}" class="btn btn-soft"><i class="bi bi-person-lines-fill me-1"></i> View Full Profile</a>
                     {% if request.user.is_superuser %}
                       <a href="{% url 'admin:clinic_doctor_change' featured_doctor.pk %}" class="btn btn-outline-secondary"><i class="bi bi-pencil-square me-1"></i> Edit in Admin</a>
